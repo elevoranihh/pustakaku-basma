@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#17594a">
+<title>Perpustakaan SMA Negeri 1 Banjarangkan</title>
+<style>
+:root{--green:#17594a;--light:#eaf4ef;--ink:#20332c;--muted:#718078;--line:#dfe9e3;--bg:#f6f8f7}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}header{background:var(--green);color:white;padding:22px max(18px,calc((100% - 1100px)/2))}header h1{font-size:clamp(21px,4vw,30px);margin:0}header p{margin:4px 0 0;color:#d4e8df}main{max-width:1100px;margin:auto;padding:22px 16px 50px}.notice{background:#fff8df;border:1px solid #eadca6;padding:12px 14px;border-radius:12px;margin-bottom:18px;font-size:13px}.nav{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.nav button,.btn{border:0;border-radius:9px;padding:10px 14px;background:var(--green);color:white;font-weight:650;cursor:pointer}.nav button{background:white;color:var(--green);border:1px solid var(--line)}.nav button.active{background:var(--green);color:white}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px}.card{background:white;border:1px solid var(--line);border-radius:14px;padding:16px}.cover{height:92px;border-radius:10px;background:var(--light);display:grid;place-items:center;font-size:34px;margin-bottom:12px}.muted{color:var(--muted);font-size:13px}.pill{display:inline-block;background:var(--light);color:var(--green);padding:3px 8px;border-radius:99px;font-size:12px}.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.field{display:block;width:100%;padding:11px;border:1px solid #cfdcd4;border-radius:9px;background:white;font:inherit;margin-top:5px}.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}label{display:block;font-size:13px;font-weight:650;margin-bottom:10px}section[hidden]{display:none!important}.panel{background:white;border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:15px}h2{margin:0 0 12px;font-size:21px}h3{margin:0 0 7px;font-size:17px}.book-title{font-size:17px;font-weight:750}.btn:disabled{opacity:.5;cursor:not-allowed}.review{padding:13px 0;border-bottom:1px solid var(--line)}.stars{color:#b98118;letter-spacing:2px}.small{font-size:12px}footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}.status{padding:10px 12px;background:var(--light);border-radius:9px;margin:12px 0;font-size:13px}table{width:100%;border-collapse:collapse;font-size:13px}td,th{text-align:left;border-bottom:1px solid var(--line);padding:10px;vertical-align:top}.tablewrap{overflow-x:auto}.danger{background:#a33535}.hidden{display:none!important}
+</style>
+</head>
+<body>
+<header><h1>📚 Perpustakaan SMA Negeri 1 Banjarangkan</h1><p>Katalog buku · Peminjaman · Pengembalian · Ulasan pembaca</p></header>
+<main>
+<div class="notice"><b>Informasi:</b> Katalog dapat dilihat tanpa akun. Formulir peminjaman merupakan pengajuan dan perlu dikonfirmasi petugas. Jangan masukkan data pribadi yang tidak diperlukan.</div>
+<nav class="nav" aria-label="Navigasi"><button class="active" data-tab="catalog">Katalog buku</button><button data-tab="borrow">Ajukan pinjam</button><button data-tab="return">Pengembalian</button><button data-tab="reviews">Ulasan buku</button><button data-tab="admin">Admin</button></nav>
+<div id="message" class="status hidden" role="status"></div>
+<section id="tab-catalog">
+<div class="panel"><div class="row"><div><h2>Katalog buku</h2><div class="muted">Cari koleksi perpustakaan sekolah.</div></div><span class="pill" id="connection">Menyiapkan…</span></div><input class="field" id="search" placeholder="Cari judul, penulis, atau kategori…"></div>
+<div id="books" class="grid"><div class="card">Memuat katalog…</div></div>
+</section>
+<section id="tab-borrow" hidden>
+<div class="panel"><h2>Ajukan peminjaman</h2><p class="muted">Setelah dikirim, tunggu persetujuan petugas perpustakaan. Pengajuan bukan bukti bahwa buku sudah dipinjam.</p>
+<form id="borrowForm"><div class="formgrid">
+<label>Nama siswa<input class="field" name="student_name" maxlength="100" required></label>
+<label>Kelas<input class="field" name="class_name" maxlength="20" placeholder="Contoh: XI.F2" required></label>
+<label>Pilih buku<select class="field" name="book_id" id="borrowBook" required></select></label>
+<label>Tanggal rencana pinjam<input class="field" name="borrow_date" type="date" required></label>
+</div><button class="btn">Kirim pengajuan</button></form></div>
+</section>
+<section id="tab-return" hidden>
+<div class="panel"><h2>Pengajuan pengembalian</h2><p class="muted">Masukkan kode transaksi yang diberikan petugas. Petugas akan memverifikasi pengembalian.</p>
+<form id="returnForm"><label>Kode transaksi<input class="field" name="loan_id" inputmode="numeric" placeholder="Contoh: 1042" required></label><button class="btn">Ajukan pengembalian</button></form></div>
+</section>
+<section id="tab-reviews" hidden>
+<div class="panel"><h2>Tulis ulasan buku</h2><p class="muted">Ulasan akan tampil untuk membantu pembaca lain memilih buku. Jangan cantumkan nomor telepon atau informasi pribadi.</p>
+<form id="reviewForm"><div class="formgrid"><label>Nama tampilan<input class="field" name="reviewer_name" maxlength="60" required></label><label>Buku<select class="field" name="book_id" id="reviewBook" required></select></label><label>Rating<select class="field" name="rating"><option value="5">★★★★★ — Sangat bagus</option><option value="4">★★★★☆ — Bagus</option><option value="3">★★★☆☆ — Cukup</option><option value="2">★★☆☆☆ — Kurang</option><option value="1">★☆☆☆☆ — Tidak sesuai harapan</option></select></label></div><label>Ulasan<textarea class="field" name="comment" rows="4" maxlength="1200" required></textarea></label><button class="btn">Kirim ulasan</button></form></div>
+<div class="panel"><h2>Ulasan pembaca</h2><div id="reviewList">Memuat ulasan…</div></div>
+</section>
+<section id="tab-admin" hidden>
+<div class="panel"><h2>Area petugas / admin</h2><p><b>Versi awal yang aman:</b> halaman ini tidak menyediakan tombol admin terbuka untuk mengubah stok atau menyetujui transaksi. Karena situs ini tanpa login, tombol admin yang bisa mengubah data akan dapat disalahgunakan siapa saja.</p><p>Untuk sementara, petugas mengelola data melalui Supabase Dashboard dengan akun petugas yang dijaga kerahasiaannya. Untuk admin langsung dari website, tambahkan login Supabase Auth dan kebijakan akses admin sebelum peluncuran.</p><p class="muted">Jangan pernah menaruh service_role key, password database, atau rahasia admin di file HTML/JavaScript publik.</p></div>
+<div class="panel"><h2>Status transaksi (untuk demonstrasi)</h2><p class="muted">Tabel ini tidak menampilkan data siswa publik. Petugas berwenang melihat pengajuan melalui Supabase Dashboard.</p></div>
+</section>
+</main>
+<footer>Perpustakaan SMA Negeri 1 Banjarangkan · Website awal, perlu persetujuan sekolah sebelum dipublikasikan.</footer>
+<script type="module">
+const SUPABASE_URL = "ISI_SUPABASE_PROJECT_URL";
+const SUPABASE_ANON_KEY = "ISI_SUPABASE_PUBLISHABLE_OR_ANON_KEY";
+const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("ISI_") && !SUPABASE_ANON_KEY.includes("ISI_");
+let sb=null, books=[];
+const $=s=>document.querySelector(s);
+const escapeHtml=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function message(text){const el=$("#message");el.textContent=text;el.classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"});}
+function today(){return new Date().toISOString().slice(0,10)}
+document.querySelectorAll("[data-tab]").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll("[data-tab]").forEach(b=>b.classList.toggle("active",b===btn));document.querySelectorAll("main section").forEach(s=>s.hidden=s.id!=="tab-"+btn.dataset.tab)}));
+async function init(){
+ if(!configured){$("#connection").textContent="Belum terhubung";books=sampleBooks;renderBooks();fillSelects();$("#reviewList").innerHTML="<p class='muted'>Tambahkan konfigurasi Supabase untuk memuat ulasan.</p>";return;}
+ try{
+  const {createClient}=await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm");
+  sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+  await loadBooks();await loadReviews();$("#connection").textContent="Terhubung";
+ }catch(e){$("#connection").textContent="Koneksi gagal";message("Koneksi ke database gagal. Periksa URL, key, dan kebijakan database.");books=sampleBooks;renderBooks();fillSelects();}
+}
+const sampleBooks=[
+{id:"sample-1",title:"Laskar Pelangi",author:"Andrea Hirata",category:"Fiksi",available_copies:3,description:"Novel tentang pendidikan dan persahabatan."},
+{id:"sample-2",title:"Bumi",author:"Tere Liye",category:"Fiksi",available_copies:2,description:"Novel petualangan fantasi."},
+{id:"sample-3",title:"Filosofi Teras",author:"Henry Manampiring",category:"Pengembangan Diri",available_copies:2,description:"Pengantar filsafat Stoikisme."}
+];
+async function loadBooks(){const {data,error}=await sb.from("books").select("id,title,author,category,available_copies,description").eq("is_active",true).order("title");if(error)throw error;books=data||[];renderBooks();fillSelects();}
+function renderBooks(){const q=$("#search").value.toLowerCase();const found=books.filter(b=>`${b.title} ${b.author} ${b.category}`.toLowerCase().includes(q));$("#books").innerHTML=found.length?found.map(b=>`<article class="card"><div class="cover">📖</div><div class="book-title">${escapeHtml(b.title)}</div><div class="muted">${escapeHtml(b.author||"Penulis belum diisi")}</div><p class="small">${escapeHtml(b.category||"Umum")}</p><p class="muted">${escapeHtml(b.description||"")}</p><div class="row"><span class="pill">${Number(b.available_copies)>0?`${b.available_copies} tersedia`:"Stok habis"}</span><button class="btn" data-borrow="${escapeHtml(b.id)}" ${Number(b.available_copies)<=0?"disabled":""}>Ajukan pinjam</button></div></article>`).join(""):"<div class='card'>Buku tidak ditemukan.</div>";$("#books").querySelectorAll("[data-borrow]").forEach(btn=>btn.onclick=()=>{document.querySelector('[data-tab="borrow"]').click();$("#borrowBook").value=btn.dataset.borrow;});}
+function fillSelects(){const opts=books.map(b=>`<option value="${escapeHtml(b.id)}">${escapeHtml(b.title)}</option>`).join("");$("#borrowBook").innerHTML=opts;$("#reviewBook").innerHTML=opts;}
+$("#search").addEventListener("input",renderBooks);
+$("#borrowForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb)return message("Database belum terhubung. Ikuti petunjuk README untuk mengaktifkan formulir.");const f=new FormData(e.currentTarget);const date=f.get("borrow_date");if(date<today())return message("Tanggal rencana pinjam tidak boleh di masa lalu.");const {error}=await sb.from("loan_requests").insert({student_name:String(f.get("student_name")).trim(),class_name:String(f.get("class_name")).trim(),book_id:f.get("book_id"),borrow_date:date,status:"pending"});if(error)return message("Pengajuan gagal dikirim. Periksa konfigurasi database atau hubungi petugas.");e.currentTarget.reset();message("Pengajuan terkirim. Tunggu konfirmasi petugas perpustakaan.");});
+$("#returnForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb)return message("Database belum terhubung.");const id=Number(new FormData(e.currentTarget).get("loan_id"));if(!Number.isInteger(id)||id<1)return message("Kode transaksi tidak valid.");const {error}=await sb.from("return_requests").insert({loan_id:id});if(error)return message("Pengajuan tidak dapat dibuat. Periksa kode transaksi dan hubungi petugas.");e.currentTarget.reset();message("Pengajuan pengembalian terkirim untuk diverifikasi petugas.");});
+$("#reviewForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb)return message("Database belum terhubung.");const f=new FormData(e.currentTarget);const {error}=await sb.from("reviews").insert({reviewer_name:String(f.get("reviewer_name")).trim(),book_id:f.get("book_id"),rating:Number(f.get("rating")),comment:String(f.get("comment")).trim()});if(error)return message("Ulasan gagal dikirim. Coba lagi nanti.");e.currentTarget.reset();await loadReviews();message("Ulasan terkirim. Terima kasih sudah berbagi pendapat!");});
+async function loadReviews(){const {data,error}=await sb.from("reviews").select("reviewer_name,rating,comment,created_at,books(title)").eq("is_visible",true).order("created_at",{ascending:false}).limit(100);if(error)throw error;$("#reviewList").innerHTML=data.length?data.map(r=>`<div class="review"><div class="row"><b>${escapeHtml(r.reviewer_name)}</b><span class="stars">${"★".repeat(r.rating)}${"☆".repeat(5-r.rating)}</span></div><div class="muted">${escapeHtml(r.books?.title||"Buku")} · ${new Date(r.created_at).toLocaleDateString("id-ID")}</div><p>${escapeHtml(r.comment)}</p></div>`).join(""):"<p class='muted'>Belum ada ulasan.</p>";}
+init();
+</script>
+</body>
+</html>
