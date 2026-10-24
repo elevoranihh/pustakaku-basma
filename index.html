@@ -149,13 +149,29 @@ async function init(){
  }
 }
 $("#search").addEventListener("input",renderBooks);
-$("#borrowForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb)return msg("Database belum terhubung.",true);const f=new FormData(e.currentTarget),date=f.get("borrow_date");if(date<today())return msg("Tanggal pinjam tidak boleh di masa lalu.",true);const {error}=await sb.from("loan_requests").insert({student_name:String(f.get("student_name")).trim(),class_name:String(f.get("class_name")).trim(),book_id:f.get("book_id"),borrow_date:date,status:"pending"});if(error)return msg("Pengajuan gagal. Periksa tabel, koneksi, dan aturan akses database.",true);e.currentTarget.reset();msg("Pengajuan terkirim. Tunggu konfirmasi petugas.");});
-$("#returnForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb)return msg("Database belum terhubung.",true);const id=Number(new FormData(e.currentTarget).get("loan_id"));if(!Number.isInteger(id)||id<1)return msg("ID transaksi tidak valid.",true);const {error}=await sb.from("return_requests").insert({loan_id:id});if(error)return msg("Pengajuan tidak dapat dibuat. Periksa ID transaksi atau hubungi petugas.",true);e.currentTarget.reset();msg("Pengajuan pengembalian terkirim untuk diverifikasi.");});
-$("#reviewForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb)return msg("Database belum terhubung.",true);const f=new FormData(e.currentTarget);const {error}=await sb.from("reviews").insert({reviewer_name:String(f.get("reviewer_name")).trim(),book_id:f.get("book_id"),rating:Number(f.get("rating")),comment:String(f.get("comment")).trim(),is_visible:false});if(error)return msg("Ulasan gagal dikirim. Coba lagi nanti.",true);e.currentTarget.reset();await loadReviews();msg("Ulasan terkirim untuk ditinjau petugas.");});
-$("#loginForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb)return msg("Atur koneksi Supabase dahulu.",true);const f=new FormData(e.currentTarget);const {data,error}=await sb.auth.signInWithPassword({email:String(f.get("email")).trim(),password:String(f.get("password"))});if(error){$("#adminTools").classList.add("hidden");return msg("Login gagal. Periksa email/password atau pastikan akun petugas sudah dibuat di Supabase.",true);}updateAuthUI(data.user);$("#adminTools").classList.remove("hidden");await loadBooks();msg("Login berhasil. Jika tidak terdaftar sebagai admin database, penambahan buku tetap akan ditolak.");});
-$("#logoutBtn").addEventListener("click",async()=>{if(sb)await sb.auth.signOut();updateAuthUI(null);msg("Kamu sudah keluar dari akun petugas.");});
-$("#addBookForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb||!session)return msg("Masuk sebagai petugas terlebih dahulu.",true);const f=new FormData(e.currentTarget);const total=Math.max(0,Math.min(10000,Number(f.get("total_copies"))||0));const record={title:String(f.get("title")).trim(),author:String(f.get("author")||"").trim(),category:String(f.get("category")||"Umum").trim()||"Umum",description:String(f.get("description")||"").trim(),total_copies:total,available_copies:total,is_active:true};const {error}=await sb.from("books").insert(record);if(error){console.error(error);return msg("Buku belum tersimpan. Pastikan akunmu sudah didaftarkan sebagai admin dan SQL admin sudah dijalankan.",true);}e.currentTarget.reset();e.currentTarget.elements.total_copies.value="1";await loadBooks();msg("Buku berhasil ditambahkan ke katalog!");});
-init();
-</script>
-</body>
-</html>
+$("#borrowForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ if(!sb)return msg("Database belum terhubung.",true);
+ const form=e.currentTarget, f=new FormData(form), date=String(f.get("borrow_date")||"");
+ const studentName=String(f.get("student_name")||"").trim(), className=String(f.get("class_name")||"").trim(), bookId=String(f.get("book_id")||"");
+ if(date<today())return msg("Tanggal pinjam tidak boleh di masa lalu.",true);
+ if(!bookId)return msg("Pilih buku yang ingin dipinjam.",true);
+ const chosen=books.find(b=>String(b.id)===bookId);
+ if(!chosen)return msg("Buku tidak ditemukan. Muat ulang katalog lalu coba lagi.",true);
+ if(Number(chosen.available_copies)<=0)return msg("Maaf, stok buku ini habis. Silakan pilih buku lain.",true);
+ const submit=form.querySelector('button[type="submit"],button:not([type])'); if(submit){submit.disabled=true;submit.textContent="Memproses…";}
+ try{
+  const {data,error}=await sb.rpc("submit_loan_request",{p_student_name:studentName,p_class_name:className,p_book_id:bookId,p_borrow_date:date});
+  if(error){console.error("Pengajuan pinjam:",error);msg("Pengajuan belum berhasil. Pastikan SQL file tambahan sudah dijalankan di Supabase. Detail: "+(error.message||"error tidak diketahui"),true);return;}
+  const result=Array.isArray(data)?data[0]:data;
+  const transactionId=result?.transaction_id??result?.id;
+  if(transactionId==null){console.error("Respons submit_loan_request:",data);msg("Pengajuan diproses, tetapi kode transaksi tidak diterima. Hubungi petugas sebelum mengirim ulang.",true);return;}
+  form.reset();
+  await loadBooks();
+  const messageEl=$("#message");
+  messageEl.innerHTML=`<strong>Pengajuan berhasil dikirim!</strong><br>Kode transaksi kamu: <strong>${esc(transactionId)}</strong><br>Buku: <strong>${esc(result.book_title||chosen.title)}</strong><br>Catat kode ini untuk pengembalian. Stok sudah dikurangi untuk menahan buku selama menunggu verifikasi petugas.`;
+  messageEl.classList.remove("hidden","error");window.scrollTo({top:0,behavior:"smooth"});
+ }catch(err){console.error(err);msg("Terjadi kesalahan saat mengirim pengajuan. Periksa koneksi lalu hubungi petugas sebelum mencoba ulang.",true);}
+ finally{if(submit){submit.disabled=false;submit.textContent="Kirim pengajuan";}}
+});
+$("#returnForm").addEventListener("submit",async e=>{e.preventDef
