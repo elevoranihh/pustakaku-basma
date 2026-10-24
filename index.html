@@ -59,6 +59,18 @@ label{display:block;font-size:13px;font-weight:700;margin-bottom:11px}section[hi
   <label>Ulasan<textarea class="field" name="comment" rows="4" maxlength="1200" required></textarea></label><button class="btn">Kirim ulasan</button></form></div>
   <div class="panel"><h2>Ulasan pembaca</h2><div id="reviewList" class="muted">Memuat ulasan…</div></div>
 </section>
+<section id="tab-meaning" hidden>
+  <div class="panel"><span class="pill">Filosofi Perpustakaan</span><h2>Makna Nama Akshara Saraswati Widya Loka</h2>
+  <p>Nama ini merupakan gabungan kata-kata Sanskerta yang menyimpan harapan tentang pengetahuan, kebijaksanaan, dan pembelajaran. Secara filosofis, nama ini dapat dimaknai sebagai <em>pengetahuan abadi yang mengalir dan menerangi dunia</em>.</p>
+  <p class="muted">Penjelasan berikut adalah penafsiran filosofis nama perpustakaan dengan nuansa budaya Hindu.</p></div>
+  <div class="grid">
+    <article class="card"><div class="cover">🕉️</div><h3>1. Akshara (अक्षर)</h3><p>Berarti “yang tidak dapat dihancurkan” atau “kekal”, dan juga dapat berarti huruf atau suku kata sebagai unsur dasar tulisan.</p><p class="muted">Nilai perpustakaan: pengetahuan dan tulisan menjadi warisan yang diteruskan lintas generasi.</p></article>
+    <article class="card"><div class="cover">🌊</div><h3>2. Saraswati (सरस्वती)</h3><p>Saraswati dikenal sebagai Dewi pengetahuan, musik, dan seni dalam agama Hindu. Namanya juga diasosiasikan dengan aliran, sebagai lambang ilmu dan kebijaksanaan yang terus mengalir.</p><p class="muted">Nilai perpustakaan: belajar adalah perjalanan berkelanjutan yang membuka kreativitas dan pemahaman.</p></article>
+    <article class="card"><div class="cover">📚</div><h3>3. Widya (विद्या)</h3><p>Widya berarti pengetahuan atau ilmu dan berkaitan dengan akar kata Sanskerta <em>vid</em>, yang berarti mengetahui.</p><p class="muted">Nilai perpustakaan: buku menjadi jendela untuk mengenal banyak gagasan dan sudut pandang.</p></article>
+    <article class="card"><div class="cover">🌏</div><h3>4. Loka (लोक)</h3><p>Berarti dunia, ruang, atau alam—tempat manusia belajar, bertumbuh, dan membagikan pengetahuan.</p><p class="muted">Nilai perpustakaan: ilmu yang diperoleh diharapkan bermanfaat bagi diri sendiri dan lingkungan.</p></article>
+  </div>
+  <div class="panel" style="margin-top:15px"><h2>Filosofi Gabungan</h2><div class="review"><h3>🌱 Pengetahuan menuju kebijaksanaan</h3><p>Pengetahuan yang bernilai dapat diwariskan dan menjadi bekal untuk mengambil keputusan dengan bijaksana.</p></div><div class="review"><h3>💧 Aliran ilmu yang tidak terputus</h3><p>Setiap buku, diskusi, dan pengalaman dapat menjadi awal dari pemahaman baru.</p></div><div class="review"><h3>✨ Menerangi dunia</h3><p>Pengetahuan bukan hanya untuk disimpan, melainkan diterapkan dan dibagikan agar memberi manfaat bagi lingkungan.</p></div><div class="notice" style="margin:16px 0 0"><strong>Makna keseluruhan:</strong> “Menggunakan pengetahuan yang abadi dan kebijaksanaan yang terus mengalir untuk menerangi dunia.”</div></div>
+</section>
 <section id="tab-admin" hidden>
   <div class="panel"><h2>Area petugas perpustakaan</h2><p class="muted">Masuk dengan akun petugas yang dibuat di Supabase Authentication. Hanya akun yang didaftarkan sebagai admin di database yang dapat menambahkan buku.</p>
     <form id="loginForm"><div class="formgrid"><label>Email petugas<input class="field" type="email" name="email" autocomplete="username" required></label><label>Password<input class="field" type="password" name="password" autocomplete="current-password" required></label></div><div class="row mobile-stack"><button class="btn">Masuk</button><button class="btn secondary hidden" type="button" id="logoutBtn">Keluar</button><span id="authStatus" class="muted">Belum masuk.</span></div></form>
@@ -72,30 +84,7 @@ label{display:block;font-size:13px;font-weight:700;margin-bottom:11px}section[hi
         <label>Jumlah eksemplar *<input class="field" type="number" name="total_copies" min="0" max="10000" value="1" required></label>
       </div><label>Deskripsi singkat<textarea class="field" name="description" rows="3" maxlength="1000" placeholder="Ringkasan buku (opsional)"></textarea></label><button class="btn">Simpan buku</button></form>
     </div>
-    <div class="panel"><h2>📋 Daftar peminjaman</h2><p class="muted">Petugas dapat memeriksa pengajuan dan menyetujui/menolak. Stok disesuaikan saat pengajuan disetujui.</p><div id="adminLoans">Tekan muat ulang setelah masuk.</div><button class="btn secondary" type="button" id="reloadLoans">Muat ulang peminjaman</button></div>
-    <div class="panel"><h2>↩️ Pengajuan pengembalian</h2><div id="adminReturns">Tekan muat ulang setelah masuk.</div></div>
-    <div class="panel"><h2>Daftar koleksi aktif</h2><div id="adminBookList">Memuat…</div></div>
-  </div>
-</section>
-<section id="tab-meaning" hidden>
-  <div class="panel">
-    <span class="pill">Filosofi Perpustakaan</span>
-    <h2>Makna Nama Akshara Saraswati Widya Loka</h2>
-    <p>Nama <strong>Akshara Saraswati Widya Loka</strong> merupakan gabungan kata-kata Sanskerta yang menyimpan harapan tentang pengetahuan, kebijaksanaan, dan pembelajaran. Secara filosofis, nama ini dapat dimaknai sebagai <em>pengetahuan abadi yang mengalir dan menerangi dunia</em>.</p>
-    <p class="muted">Makna berikut merupakan penafsiran filosofis nama perpustakaan, dengan nuansa spiritual dan budaya Hindu.</p>
-  </div>
-  <div class="grid">
-    <article class="card"><div class="cover">🕉️</div><h3>1. Akshara (अक्षर)</h3><p>Berarti “yang tidak dapat dihancurkan” atau “kekal”, dan juga dapat berarti huruf atau suku kata sebagai unsur dasar tulisan. Dalam tradisi Hindu, istilah ini memiliki kaitan dengan hal yang abadi dan tidak berubah.</p><p class="muted">Nilai perpustakaan: pengetahuan dan tulisan menjadi warisan yang dapat diteruskan lintas generasi.</p></article>
-    <article class="card"><div class="cover">🌊</div><h3>2. Saraswati (सरस्वती)</h3><p>Saraswati dikenal sebagai Dewi pengetahuan, musik, dan seni dalam agama Hindu. Namanya juga diasosiasikan dengan aliran, sehingga melambangkan ilmu dan kebijaksanaan yang terus mengalir.</p><p class="muted">Nilai perpustakaan: belajar adalah perjalanan berkelanjutan yang membuka kreativitas dan pemahaman.</p></article>
-    <article class="card"><div class="cover">📚</div><h3>3. Widya (विद्या)</h3><p>Berasal dari akar kata Sanskerta <em>vid</em>, yang berarti mengetahui. Widya berarti pengetahuan atau ilmu dan mengingatkan kita akan pentingnya belajar untuk menumbuhkan kebijaksanaan.</p><p class="muted">Nilai perpustakaan: buku menjadi jendela untuk mengenal banyak gagasan dan sudut pandang.</p></article>
-    <article class="card"><div class="cover">🌏</div><h3>4. Loka (लोक)</h3><p>Berarti dunia, ruang, atau alam. Kata ini memberi gambaran tentang ruang kehidupan tempat manusia belajar, bertumbuh, dan membagikan pengetahuan.</p><p class="muted">Nilai perpustakaan: ilmu yang diperoleh diharapkan membawa manfaat bagi diri sendiri dan lingkungan.</p></article>
-  </div>
-  <div class="panel" style="margin-top:15px">
-    <h2>Filosofi Gabungan</h2>
-    <div class="review"><h3>🌱 Pengetahuan sebagai jalan menuju kebijaksanaan</h3><p>Gabungan Akshara dan Widya mengingatkan bahwa pengetahuan yang bernilai dapat diwariskan dan menjadi bekal untuk mengambil keputusan dengan bijaksana.</p></div>
-    <div class="review"><h3>💧 Aliran ilmu yang tidak terputus</h3><p>Saraswati melambangkan pembelajaran yang terus bergerak. Setiap buku, diskusi, dan pengalaman dapat menjadi awal dari pemahaman baru.</p></div>
-    <div class="review"><h3>✨ Menerangi dunia</h3><p>Loka memperluas makna tersebut: pengetahuan bukan hanya untuk disimpan, melainkan juga untuk diterapkan dan dibagikan agar memberi manfaat bagi dunia sekitar.</p></div>
-    <div class="notice" style="margin:16px 0 0"><strong>Makna keseluruhan:</strong> “Menggunakan pengetahuan yang abadi dan kebijaksanaan yang terus mengalir untuk menerangi dunia.” Inilah harapan Akshara Saraswati Widya Loka sebagai ruang membaca, belajar, bertukar gagasan, dan bertumbuh bersama.</div>
+    <div class="panel"><h2>Daftar koleksi aktif</h2><p class="muted">Untuk versi ini, penambahan buku tersedia melalui form ini. Pengubahan stok dan penghapusan tetap dikelola petugas melalui dashboard Supabase.</p><div id="adminBookList">Memuat…</div></div>
   </div>
 </section>
 </main>
@@ -126,42 +115,9 @@ function fillSelects(){const opts=books.map(b=>`<option value="${esc(b.id)}">${e
 function renderAdminList(){const list=books.filter(b=>!String(b.id).startsWith("sample-"));$("#adminBookList").innerHTML=list.length?`<div class="tablewrap"><table><thead><tr><th>Judul</th><th>Penulis</th><th>Kategori</th><th>Stok tersedia</th></tr></thead><tbody>${list.map(b=>`<tr><td>${esc(b.title)}</td><td>${esc(b.author)}</td><td>${esc(b.category)}</td><td>${Number(b.available_copies)}</td></tr>`).join("")}</tbody></table></div>`:"<p class='muted'>Belum ada buku tersimpan di database.</p>";}
 async function loadBooks(){
  const {data,error}=await sb.from("books").select("id,title,author,category,description,total_copies,available_copies,is_active").eq("is_active",true).order("title");
- if(error)throw error;books=data||[];renderBooks();fillSelects();renderAdminList();
+ if(error){console.error("Supabase loadBooks error:",error);throw error;}
+ books=data||[];renderBooks();fillSelects();renderAdminList();
 }
-
-async function loadAdminRequests(){
- if(!sb||!session)return;
- const loanBox=$("#adminLoans"),returnBox=$("#adminReturns");
- loanBox.textContent="Memuat peminjaman…";returnBox.textContent="Memuat pengembalian…";
- const {data:loans,error:le}=await sb.from("loan_requests").select("id,student_name,class_name,book_id,borrow_date,status,books(title)").order("id",{ascending:false}).limit(200);
- if(le){loanBox.textContent="Belum bisa memuat peminjaman. Pastikan SQL izin admin sudah dijalankan.";} else {
- loanBox.innerHTML=loans?.length?`<div class="tablewrap"><table><thead><tr><th>Kode</th><th>Siswa / kelas</th><th>Buku</th><th>Tanggal</th><th>Status</th><th>Aksi</th></tr></thead><tbody>${loans.map(x=>`<tr><td>${esc(x.id)}</td><td>${esc(x.student_name)}<br>${esc(x.class_name)}</td><td>${esc(x.books?.title||"Buku")}</td><td>${esc(x.borrow_date||"-")}</td><td>${esc(x.status||"pending")}</td><td>${x.status==="pending"?`<button class="btn" data-loan-approve="${x.id}" data-book="${esc(x.book_id)}">Setujui</button> <button class="btn secondary" data-loan-reject="${x.id}">Tolak</button>`:"—"}</td></tr>`).join("")}</tbody></table></div>`:"Belum ada pengajuan peminjaman.";
- loanBox.querySelectorAll("[data-loan-approve]").forEach(b=>b.onclick=()=>approveLoan(Number(b.dataset.loanApprove),b.dataset.book));
- loanBox.querySelectorAll("[data-loan-reject]").forEach(b=>b.onclick=()=>changeLoanStatus(Number(b.dataset.loanReject),"rejected"));
- }
- const {data:returns,error:re}=await sb.from("return_requests").select("id,loan_id,status,loan_requests(student_name,class_name,book_id,books(title))").order("id",{ascending:false}).limit(200);
- if(re){returnBox.textContent="Belum bisa memuat pengembalian. Pastikan relasi loan_id dan izin admin tersedia.";} else {
- returnBox.innerHTML=returns?.length?`<div class="tablewrap"><table><thead><tr><th>ID pengembalian</th><th>Kode pinjam</th><th>Siswa</th><th>Buku</th><th>Status</th><th>Aksi</th></tr></thead><tbody>${returns.map(x=>`<tr><td>${esc(x.id)}</td><td>${esc(x.loan_id)}</td><td>${esc(x.loan_requests?.student_name||"-")}<br>${esc(x.loan_requests?.class_name||"")}</td><td>${esc(x.loan_requests?.books?.title||"Buku")}</td><td>${esc(x.status||"pending")}</td><td>${(x.status||"pending")==="pending"?`<button class="btn" data-return-approve="${x.id}" data-loan="${x.loan_id}">Setujui kembali</button>`:"—"}</td></tr>`).join("")}</tbody></table></div>`:"Belum ada pengajuan pengembalian.";
- returnBox.querySelectorAll("[data-return-approve]").forEach(b=>b.onclick=()=>approveReturn(Number(b.dataset.returnApprove),Number(b.dataset.loan)));
- }
-}
-async function changeLoanStatus(id,status){const {error}=await sb.from("loan_requests").update({status}).eq("id",id).eq("status","pending");if(error)return msg("Status gagal diperbarui. Periksa izin admin.",true);await loadAdminRequests();msg("Status pengajuan diperbarui.");}
-async function approveLoan(id,bookId){
- const book=books.find(b=>String(b.id)===String(bookId));if(!book)return msg("Data buku tidak ditemukan. Muat ulang dulu.",true);if(Number(book.available_copies)<=0)return msg("Stok buku sudah habis.",true);
- const {data:row,error:readErr}=await sb.from("loan_requests").select("id,status").eq("id",id).single();if(readErr||row.status!=="pending")return msg("Pengajuan sudah berubah. Muat ulang daftar.",true);
- const {error:stockErr}=await sb.from("books").update({available_copies:Number(book.available_copies)-1}).eq("id",bookId);if(stockErr)return msg("Stok gagal diperbarui. Pastikan izin admin untuk mengubah stok tersedia.",true);
- const {error}=await sb.from("loan_requests").update({status:"approved"}).eq("id",id).eq("status","pending");if(error){await loadBooks().catch(()=>{});return msg("Stok telah berubah, tetapi status gagal diperbarui. Hubungi admin database untuk pengecekan.",true);}
- await loadBooks();await loadAdminRequests();msg("Peminjaman disetujui dan stok dikurangi satu.");
-}
-async function approveReturn(returnId,loanId){
- const {data:ret,error:re}=await sb.from("return_requests").select("id,status,loan_id").eq("id",returnId).single();if(re||ret.status&&ret.status!=="pending")return msg("Pengembalian sudah diproses atau tidak dapat dibaca.",true);
- const {data:loan,error:le}=await sb.from("loan_requests").select("id,status,book_id").eq("id",loanId).single();if(le||!loan)return msg("Data peminjaman tidak ditemukan.",true);
- const book=books.find(b=>String(b.id)===String(loan.book_id));if(!book)return msg("Data buku tidak ditemukan. Muat ulang dulu.",true);
- const {error:stockErr}=await sb.from("books").update({available_copies:Math.min(Number(book.total_copies??book.available_copies+1),Number(book.available_copies)+1)}).eq("id",loan.book_id);if(stockErr)return msg("Stok gagal diperbarui. Periksa izin admin.",true);
- const {error:retErr}=await sb.from("return_requests").update({status:"approved"}).eq("id",returnId);if(retErr)return msg("Stok sudah ditambah tetapi status pengembalian gagal diperbarui. Periksa database.",true);
- const {error:loanErr}=await sb.from("loan_requests").update({status:"returned"}).eq("id",loanId);await loadBooks();await loadAdminRequests();msg(loanErr?"Pengembalian disetujui; status pinjaman perlu dicek.":"Pengembalian disetujui dan stok ditambah satu.");
-}
-
 async function loadReviews(){
  const {data,error}=await sb.from("reviews").select("reviewer_name,rating,comment,created_at,books(title)").eq("is_visible",true).order("created_at",{ascending:false}).limit(100);
  if(error){$("#reviewList").textContent="Ulasan belum dapat dimuat.";return;}
@@ -175,19 +131,28 @@ function updateAuthUI(user){
 async function init(){
  if(!configured){setConnection("URL/key belum diatur");books=sampleBooks;renderBooks();fillSelects();renderAdminList();$("#reviewList").textContent="Atur URL dan key Supabase untuk memuat ulasan.";$("#authStatus").textContent="Koneksi Supabase belum diatur.";return;}
  try{
-  const {createClient}=await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm");
+  let supabaseModule;
+  try { supabaseModule=await import("https://esm.sh/@supabase/supabase-js@2"); }
+  catch(firstImportError) { console.warn("Primary Supabase CDN failed; trying fallback",firstImportError); supabaseModule=await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"); }
+  const {createClient}=supabaseModule;
   sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
   const {data:{session:currentSession}}=await sb.auth.getSession();updateAuthUI(currentSession?.user||null);
-  sb.auth.onAuthStateChange((_event,newSession)=>{updateAuthUI(newSession?.user||null);if(newSession?.user){$("#adminTools").classList.remove("hidden");loadBooks().then(loadAdminRequests).catch(()=>{});}});
+  sb.auth.onAuthStateChange((_event,newSession)=>{updateAuthUI(newSession?.user||null);if(newSession?.user){$("#adminTools").classList.remove("hidden");loadBooks().catch(()=>{});}});
   await loadBooks();await loadReviews();setConnection("Database terhubung");
- }catch(err){setConnection("Koneksi bermasalah");books=sampleBooks;renderBooks();fillSelects();renderAdminList();$("#reviewList").textContent="Tidak bisa terhubung ke database. Periksa URL/key dan tabel Supabase.";}
+ }catch(err){
+  console.error("Inisialisasi Supabase gagal:",err);
+  setConnection("Koneksi bermasalah");
+  books=sampleBooks;renderBooks();fillSelects();renderAdminList();
+  $("#reviewList").textContent="Ulasan tidak dapat dimuat sampai koneksi database pulih.";
+  const detail=String(err?.message||err||"Error tidak diketahui");
+  const el=$("#message");el.textContent="Koneksi Supabase gagal: "+detail+". Periksa detail ini untuk menentukan perbaikan.";el.classList.remove("hidden");el.classList.add("error");
+ }
 }
 $("#search").addEventListener("input",renderBooks);
-$("#borrowForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb)return msg("Database belum terhubung.",true);const f=new FormData(e.currentTarget),date=f.get("borrow_date");if(date<today())return msg("Tanggal pinjam tidak boleh di masa lalu.",true);const {data,error}=await sb.rpc("submit_loan_request",{p_student_name:String(f.get("student_name")).trim(),p_class_name:String(f.get("class_name")).trim(),p_book_id:f.get("book_id"),p_borrow_date:date});if(error)return msg("Pengajuan gagal. Jalankan SQL fitur transaksi yang ada di ZIP, lalu coba lagi.",true);e.currentTarget.reset();msg("Pengajuan terkirim! Kode transaksi kamu: " + data + " — simpan kode ini untuk pengembalian.");alert("PENGAJUAN BERHASIL\nKode transaksi: " + data + "\nSimpan kode ini untuk pengembalian buku.");});});
+$("#borrowForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb)return msg("Database belum terhubung.",true);const f=new FormData(e.currentTarget),date=f.get("borrow_date");if(date<today())return msg("Tanggal pinjam tidak boleh di masa lalu.",true);const {error}=await sb.from("loan_requests").insert({student_name:String(f.get("student_name")).trim(),class_name:String(f.get("class_name")).trim(),book_id:f.get("book_id"),borrow_date:date,status:"pending"});if(error)return msg("Pengajuan gagal. Periksa tabel, koneksi, dan aturan akses database.",true);e.currentTarget.reset();msg("Pengajuan terkirim. Tunggu konfirmasi petugas.");});
 $("#returnForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb)return msg("Database belum terhubung.",true);const id=Number(new FormData(e.currentTarget).get("loan_id"));if(!Number.isInteger(id)||id<1)return msg("ID transaksi tidak valid.",true);const {error}=await sb.from("return_requests").insert({loan_id:id});if(error)return msg("Pengajuan tidak dapat dibuat. Periksa ID transaksi atau hubungi petugas.",true);e.currentTarget.reset();msg("Pengajuan pengembalian terkirim untuk diverifikasi.");});
 $("#reviewForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb)return msg("Database belum terhubung.",true);const f=new FormData(e.currentTarget);const {error}=await sb.from("reviews").insert({reviewer_name:String(f.get("reviewer_name")).trim(),book_id:f.get("book_id"),rating:Number(f.get("rating")),comment:String(f.get("comment")).trim(),is_visible:false});if(error)return msg("Ulasan gagal dikirim. Coba lagi nanti.",true);e.currentTarget.reset();await loadReviews();msg("Ulasan terkirim untuk ditinjau petugas.");});
-$("#loginForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb)return msg("Atur koneksi Supabase dahulu.",true);const f=new FormData(e.currentTarget);const {data,error}=await sb.auth.signInWithPassword({email:String(f.get("email")).trim(),password:String(f.get("password"))});if(error){$("#adminTools").classList.add("hidden");return msg("Login gagal. Periksa email/password atau pastikan akun petugas sudah dibuat di Supabase.",true);}updateAuthUI(data.user);$("#adminTools").classList.remove("hidden");await loadBooks();await loadAdminRequests();msg("Login berhasil. Jika tidak terdaftar sebagai admin database, penambahan buku tetap akan ditolak.");});
-$("#reloadLoans").addEventListener("click",()=>loadAdminRequests());
+$("#loginForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb)return msg("Atur koneksi Supabase dahulu.",true);const f=new FormData(e.currentTarget);const {data,error}=await sb.auth.signInWithPassword({email:String(f.get("email")).trim(),password:String(f.get("password"))});if(error){$("#adminTools").classList.add("hidden");return msg("Login gagal. Periksa email/password atau pastikan akun petugas sudah dibuat di Supabase.",true);}updateAuthUI(data.user);$("#adminTools").classList.remove("hidden");await loadBooks();msg("Login berhasil. Jika tidak terdaftar sebagai admin database, penambahan buku tetap akan ditolak.");});
 $("#logoutBtn").addEventListener("click",async()=>{if(sb)await sb.auth.signOut();updateAuthUI(null);msg("Kamu sudah keluar dari akun petugas.");});
 $("#addBookForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb||!session)return msg("Masuk sebagai petugas terlebih dahulu.",true);const f=new FormData(e.currentTarget);const total=Math.max(0,Math.min(10000,Number(f.get("total_copies"))||0));const record={title:String(f.get("title")).trim(),author:String(f.get("author")||"").trim(),category:String(f.get("category")||"Umum").trim()||"Umum",description:String(f.get("description")||"").trim(),total_copies:total,available_copies:total,is_active:true};const {error}=await sb.from("books").insert(record);if(error){console.error(error);return msg("Buku belum tersimpan. Pastikan akunmu sudah didaftarkan sebagai admin dan SQL admin sudah dijalankan.",true);}e.currentTarget.reset();e.currentTarget.elements.total_copies.value="1";await loadBooks();msg("Buku berhasil ditambahkan ke katalog!");});
 init();
