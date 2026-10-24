@@ -93,7 +93,43 @@ async function submitLoan(data){if(!db){showNotice("Mode demo: formulir belum di
 async function submitReturn(data){if(!db){showNotice("Mode demo: formulir belum disimpan ke database. Hubungkan Supabase untuk mengaktifkan penyimpanan.","err");return}const {error}=await db.from("return_requests").insert(data);if(error)throw error}
 $("loanForm").addEventListener("submit",async e=>{e.preventDefault();const b=books.find(x=>String(x.id)===$("loanBook").value);if(!b||Number(b.stock)<=0){showNotice("Buku belum tersedia. Silakan pilih buku lain.","err");return}const data={book_id:b.id,book_title:b.title,student_name:$("loanName").value.trim(),student_class:$("loanClass").value.trim(),student_id:$("loanId").value.trim(),loan_date:$("loanDate").value,notes:$("loanNotes").value.trim(),status:"pending"};try{await submitLoan(data);if(db)showNotice("Permohonan peminjaman berhasil dikirim. Tunggu konfirmasi petugas.");e.target.reset()}catch(err){showNotice("Gagal mengirim permohonan: "+(err.message||"periksa konfigurasi database"),"err")}});
 $("returnForm").addEventListener("submit",async e=>{e.preventDefault();const b=books.find(x=>String(x.id)===$("returnBook").value);if(!b){showNotice("Pilih buku yang ingin dikembalikan.","err");return}const data={book_id:b.id,book_title:b.title,student_name:$("returnName").value.trim(),student_id:$("returnId").value.trim(),return_date:$("returnDate").value,book_condition:$("returnCondition").value,status:"pending"};try{if(!db){showNotice("Mode demo: pengembalian belum tersimpan. Hubungkan Supabase agar permohonan tercatat.","err");return}await submitReturn(data);showNotice("Berhasil! Permohonan pengembalian buku sudah tercatat dan menunggu konfirmasi petugas.","ok");e.target.reset()}catch(err){showNotice("Pengembalian gagal dikirim: "+(err.message||"periksa koneksi dan izin Supabase"),"err")}});
-$("reviewForm").addEventListener("submit",async e=>{e.preventDefault();const title=$("reviewBook").value;const data={reviewer_name:$("reviewName").value.trim(),book_title:title,rating:Number($("reviewRating").value),review_text:$("reviewText").value.trim()};try{if(db){const {data:inserted,error}=await db.from("reviews").insert(data).select().single();if(error)throw error;reviews.unshift({id:inserted?.id??Date.now(),name:data.reviewer_name,...data});notice("notice","Terima kasih! Ulasan berhasil dikirim dan langsung ditampilkan untuk semua pengunjung.","ok")}else{reviews.unshift({id:Date.now(),name:data.reviewer_name,...data});notice("notice","Ulasan tampil pada pratinjau demo saja. Hubungkan Supabase agar ulasan tersimpan dan terlihat oleh pengunjung lain.","ok")}renderReviews();e.target.reset()}catch(err){showNotice("Ulasan gagal dikirim: "+(err.message||"periksa koneksi dan izin Supabase"),"err")}});
+
+$("reviewForm").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const bookId = $("reviewBook").value;
+  const book = books.find(b => String(b.id) === bookId);
+
+  if (!db) {
+    showNotice("Database belum terhubung.", "err");
+    return;
+  }
+
+  if (!book) {
+    showNotice("Pilih buku yang ingin diulas.", "err");
+    return;
+  }
+
+  const review = {
+    reviewer_name: $("reviewName").value.trim(),
+    book_id: book.id,
+    rating: Number($("reviewRating").value),
+    comment: $("reviewText").value.trim(),
+    is_visible: true
+  };
+
+  try {
+    const { error } = await db.from("reviews").insert(review);
+    if (error) throw error;
+
+    showNotice("Ulasan berhasil dikirim!", "ok");
+    e.target.reset();
+    await loadData();
+  } catch (err) {
+    console.error("Gagal mengirim ulasan:", err);
+    showNotice("Ulasan gagal dikirim: " + err.message, "err");
+  }
+});
 $("statusForm").addEventListener("submit",async e=>{e.preventDefault();const name=$("statusName").value.trim(),studentId=$("statusId").value.trim();$("statusResults").innerHTML="";if(!db){notice("statusNotice","Koneksi database belum tersedia. Coba lagi setelah website terhubung.","err");return}notice("statusNotice","Sedang memeriksa status…","ok");try{const {data,error}=await db.rpc("check_student_request_status",{p_student_id:studentId,p_student_name:name});if(error)throw error;const rows=Array.isArray(data)?data:[];if(!rows.length){$("statusNotice").className="notice";$("statusResults").innerHTML='<div class="empty">Belum ditemukan permohonan yang cocok. Pastikan nama dan NIS sama persis dengan data pengajuan.</div>';return}$("statusNotice").className="notice";$("statusResults").innerHTML=rows.map(x=>{const type=x.request_type==="loan"?"Peminjaman":"Pengembalian";const labels={pending:"Menunggu persetujuan admin",approved:x.request_type==="loan"?"Disetujui admin":"Pengembalian disetujui admin",rejected:"Ditolak admin",completed:"Selesai"};const status=labels[x.status]||x.status||"Status belum tersedia";return `<article class="statusitem"><strong>${esc(x.book_title||"Buku")}</strong><p>${esc(type)} • ${esc(status)}</p><small class="muted">Diajukan: ${x.created_at?new Date(x.created_at).toLocaleString("id-ID"):"Tanggal tidak tersedia"}</small></article>`}).join("")}catch(err){console.error(err);notice("statusNotice","Pengecekan status belum aktif. Fungsi Supabase check_student_request_status perlu dibuat. Ikuti SQL yang disertakan bersama file.","err")}}); 
 $("search").addEventListener("input",renderBooks);$("category").addEventListener("change",renderBooks);$("availability").addEventListener("change",renderBooks);
 document.querySelectorAll("[data-scroll]").forEach(btn=>btn.addEventListener("click",()=>{document.getElementById(btn.dataset.scroll).scrollIntoView({behavior:"smooth"});document.querySelectorAll(".navbtn").forEach(x=>x.classList.toggle("active",x.dataset.scroll===btn.dataset.scroll))}));
