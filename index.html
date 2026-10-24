@@ -57,8 +57,8 @@
 <script>
 /* SETUP: paste Supabase Project URL and publishable/anon key below.
    Never place a service_role/secret key or an admin password in frontend code. */
-const SUPABASE_URL = "PASTE_SUPABASE_PROJECT_URL_HERE";
-const SUPABASE_ANON_KEY = "PASTE_SUPABASE_PUBLISHABLE_OR_ANON_KEY_HERE";
+const SUPABASE_URL = "https://lehmwhxpjkdkxfkkunaj.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_lK5gA_bWHzioAKSHEun_dA_WlV2MEvs";
 const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("PASTE_") && !SUPABASE_ANON_KEY.includes("PASTE_");
 const db = configured && window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const sampleBooks = [
