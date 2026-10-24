@@ -1,185 +1,107 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#174f43">
-<title>Akshara Saraswati Widya Loka — Perpustakaan</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#123b32">
+<title>Akshara Saraswati Widya Loka — Perpustakaan Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--green:#174f43;--green2:#236b58;--mint:#e8f4ee;--ink:#20332c;--muted:#718078;--line:#dce8e0;--bg:#f5f8f6;--white:#fff;--gold:#f0c66e}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-header{background:linear-gradient(120deg,#123e35,#236b58);color:white;padding:28px max(18px,calc((100% - 1120px)/2)) 24px}
-.brand{display:flex;gap:14px;align-items:center}.logo{width:54px;height:54px;display:grid;place-items:center;background:#ffffff20;border:1px solid #ffffff40;border-radius:17px;font-size:28px}
-header h1{font-size:clamp(22px,4vw,32px);line-height:1.2;margin:0}header p{margin:7px 0 0;color:#d9eee4}
-main{max-width:1120px;margin:auto;padding:22px 16px 50px}.notice{background:#fff7df;border:1px solid #eadca6;padding:12px 14px;border-radius:12px;margin-bottom:18px;font-size:13px}
-.nav{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}.nav button,.btn{border:0;border-radius:10px;padding:10px 14px;background:var(--green);color:white;font-weight:700;cursor:pointer}.nav button{background:white;color:var(--green);border:1px solid var(--line)}.nav button.active{background:var(--green);color:white}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}.card,.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:0 3px 12px #163e2d08}.panel{margin-bottom:15px}
-.cover{height:100px;border-radius:12px;background:linear-gradient(135deg,#e8f4ee,#f8f0d9);display:grid;place-items:center;font-size:38px;margin-bottom:13px}
-.muted{color:var(--muted);font-size:13px}.pill{display:inline-block;background:var(--mint);color:var(--green);padding:4px 9px;border-radius:99px;font-size:12px;font-weight:700}
-.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.field{display:block;width:100%;padding:11px 12px;border:1px solid #cfdcd4;border-radius:10px;background:white;font:inherit;margin-top:5px;color:var(--ink)}.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
-label{display:block;font-size:13px;font-weight:700;margin-bottom:11px}section[hidden]{display:none!important}h2{margin:0 0 8px;font-size:22px}h3{margin:0 0 7px;font-size:17px}.book-title{font-size:17px;font-weight:800}.btn:disabled{opacity:.5;cursor:not-allowed}.btn.secondary{background:#e8f4ee;color:var(--green)}.review{padding:13px 0;border-bottom:1px solid var(--line)}.stars{color:#b98118;letter-spacing:2px}.small{font-size:12px}footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}.status{padding:11px 13px;background:var(--mint);border-radius:10px;margin:12px 0;font-size:13px}.status.error{background:#fff0ed;color:#8a2f22}.status.hidden{display:none}.hidden{display:none!important}.tablewrap{overflow-x:auto}input[type=date]{min-height:44px}.hint{font-size:12px;color:var(--muted);margin-top:6px}
-@media(max-width:520px){header{padding-top:22px}.logo{width:46px;height:46px;border-radius:14px}.nav button{flex:1 1 auto}.row.mobile-stack{align-items:flex-start;flex-direction:column}}
+:root{--green:#123b32;--green2:#1e5b49;--lime:#d7e8a2;--cream:#f7f5ed;--paper:#fffefa;--ink:#172c27;--muted:#718079;--line:#e5e8df;--orange:#c96e43;--shadow:0 16px 45px #163b2b12}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.wrap{max-width:1180px;margin:auto;padding:0 24px}.topbar{background:var(--green);color:white;padding:14px 0}.topinner{display:flex;justify-content:space-between;align-items:center;gap:16px}.brandmini{display:flex;gap:10px;align-items:center;font-weight:700;letter-spacing:.02em}.mark{width:38px;height:38px;border-radius:12px;background:var(--lime);color:var(--green);display:grid;place-items:center;font-size:21px;font-weight:700}.toplinks{display:flex;gap:8px;align-items:center}.navbtn{border:0;background:transparent;color:#e4eee8;padding:10px 12px;border-radius:10px}.navbtn.active,.navbtn:hover{background:#ffffff18;color:white}.loginbtn{border:1px solid #ffffff65;border-radius:10px;background:transparent;color:white;padding:9px 14px}.hero{background:var(--green);color:white;padding:48px 0 64px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:400px;height:400px;border:1px solid #ffffff20;border-radius:50%;right:-70px;top:-170px;box-shadow:0 0 0 48px #ffffff08,0 0 0 100px #ffffff05}.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;position:relative;z-index:1}.eyebrow{color:var(--lime);text-transform:uppercase;font-size:12px;font-weight:700;letter-spacing:.18em}.hero h1{font:700 clamp(34px,5vw,58px)/1.08 'Playfair Display',serif;margin:16px 0}.hero p{color:#d6e4dc;line-height:1.75;max-width:580px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}.btn{border:0;border-radius:12px;padding:12px 17px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn.primary{background:var(--lime);color:var(--green)}.btn.light{background:white;color:var(--green)}.btn.outline{background:transparent;border:1px solid var(--line);color:var(--ink)}.btn.dark{background:var(--green);color:white}.hero-card{background:#ffffff0d;border:1px solid #ffffff2c;border-radius:24px;padding:24px;backdrop-filter:blur(5px)}.hero-card .big{font:700 42px 'Playfair Display',serif;color:var(--lime)}.hero-card p{margin:6px 0}.hero-card .small{font-size:13px;color:#d6e4dc}.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}.stat{padding:14px 10px;background:#ffffff0b;border-radius:14px}.stat strong{display:block;font-size:21px}.stat span{font-size:11px;color:#d6e4dc}.section{padding:36px 0}.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:20px}.sectionhead h2{font:700 29px 'Playfair Display',serif;margin:4px 0}.sectionhead p{margin:0;color:var(--muted);font-size:14px}.label{font-size:11px;color:var(--green2);font-weight:700;letter-spacing:.13em;text-transform:uppercase}.tools{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.field{border:1px solid var(--line);background:white;border-radius:11px;padding:12px 13px;color:var(--ink);min-width:0}.search{flex:1;min-width:180px}.tools select{min-width:145px}.bookgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.book{background:var(--paper);border:1px solid var(--line);border-radius:17px;overflow:hidden;box-shadow:0 4px 15px #153c2c05;display:flex;flex-direction:column}.cover{height:168px;display:grid;place-items:center;padding:18px;text-align:center;color:#fff;background:linear-gradient(135deg,#234f41,#7e9b72);position:relative}.cover:before{content:"";position:absolute;inset:12px;border:1px solid #ffffff60;border-radius:7px}.cover span{font:700 20px/1.2 'Playfair Display',serif;z-index:1;max-width:150px}.cover small{position:absolute;bottom:19px;z-index:1;font-size:9px;letter-spacing:.16em}.cover.c2{background:linear-gradient(135deg,#b16a47,#e0b17b)}.cover.c3{background:linear-gradient(135deg,#3d5d86,#90a9c6)}.cover.c4{background:linear-gradient(135deg,#5a4b77,#b1a0c7)}.cover.c5{background:linear-gradient(135deg,#3f766c,#a9c9a8)}.cover.c6{background:linear-gradient(135deg,#6b5939,#c9b780)}.cover.c7{background:linear-gradient(135deg,#8b4951,#d59aa0)}.cover.c8{background:linear-gradient(135deg,#344c56,#9bb6b8)}.bookbody{padding:15px;display:flex;flex-direction:column;flex:1}.category{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--green2);font-weight:700}.book h3{font-size:16px;line-height:1.35;margin:7px 0}.author{font-size:12px;color:var(--muted);margin:0 0 12px}.bookfoot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px}.stock{font-size:11px;color:var(--green2);font-weight:700}.stock.out{color:var(--orange)}.smallbtn{border:0;border-radius:9px;padding:9px 11px;background:var(--green);color:white;font-size:12px;font-weight:700}.smallbtn:disabled{opacity:.4;cursor:not-allowed}.empty{padding:30px;text-align:center;color:var(--muted);grid-column:1/-1;background:white;border:1px dashed var(--line);border-radius:16px}.panels{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px}.panel h3{font:700 22px 'Playfair Display',serif;margin:0 0 7px}.panel>p{color:var(--muted);font-size:13px;margin:0 0 18px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.formgrid .full{grid-column:1/-1}.formgrid label,.loginform label{display:block;font-size:12px;font-weight:700;margin-bottom:6px}.formgrid input,.formgrid select,.formgrid textarea,.loginform input{width:100%}.formgrid textarea{min-height:90px;resize:vertical}.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.review{background:white;border:1px solid var(--line);border-radius:15px;padding:18px}.stars{color:#c58a35;letter-spacing:2px}.review p{line-height:1.65;font-size:13px}.review strong{font-size:13px}.review small{color:var(--muted)}.footer{background:#102f28;color:#dbe7df;padding:30px 0;margin-top:20px}.footerinner{display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}.footer small{color:#a8bdb1}.notice{margin:18px 0;padding:13px 15px;border-radius:12px;font-size:13px;display:none}.notice.show{display:block}.notice.ok{background:#e3f2e5;color:#245b36}.notice.err{background:#fae8e2;color:#8b3824}.modal{position:fixed;inset:0;background:#0b211bd9;z-index:10;display:none;align-items:center;justify-content:center;padding:18px}.modal.show{display:flex}.modalbox{width:min(480px,100%);background:var(--paper);border-radius:20px;padding:24px;max-height:90vh;overflow:auto}.modalhead{display:flex;justify-content:space-between;align-items:center;gap:12px}.modalhead h3{font:700 24px 'Playfair Display',serif;margin:0}.xbtn{border:0;background:#edf0e9;border-radius:9px;width:36px;height:36px}.loginform{display:grid;gap:13px;margin-top:18px}.adminarea{display:none;padding:28px 0}.adminarea.show{display:block}.adminlist{display:grid;gap:10px}.adminitem{background:white;border:1px solid var(--line);border-radius:12px;padding:13px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:13px}.pill{display:inline-block;border-radius:20px;background:#e8efe5;color:#28543e;padding:5px 9px;font-size:11px;font-weight:700}.muted{color:var(--muted)}.hide{display:none!important}
+@media(max-width:900px){.bookgrid{grid-template-columns:repeat(2,1fr)}.hero-grid{grid-template-columns:1fr}.hero-card{max-width:500px}.reviews{grid-template-columns:1fr 1fr}}@media(max-width:600px){.wrap{padding:0 16px}.topinner{align-items:flex-start;flex-direction:column}.toplinks{width:100%;overflow:auto}.navbtn{white-space:nowrap;padding:8px}.hero{padding:35px 0 42px}.hero-stats{grid-template-columns:repeat(3,1fr)}.section{padding:27px 0}.sectionhead{align-items:flex-start;flex-direction:column}.bookgrid{gap:10px}.cover{height:140px}.bookbody{padding:12px}.book h3{font-size:14px}.bookfoot{align-items:flex-start;flex-direction:column}.panels,.reviews{grid-template-columns:1fr}.panel{padding:17px}.formgrid{grid-template-columns:1fr}.formgrid .full{grid-column:auto}.hero-card{padding:18px}}
 </style>
 </head>
 <body>
-<header>
-  <div class="brand"><div class="logo">📚</div><div><h1>Akshara Saraswati Widya Loka</h1><p>Perpustakaan SMA Negeri 1 Banjarangkan · Baca, pinjam, dan berbagi cerita</p></div></div>
-</header>
+<header class="topbar"><div class="wrap topinner">
+ <div class="brandmini"><div class="mark">A</div><div>AKSHARA <span style="color:var(--lime)">SARASWATI</span><div style="font-size:10px;font-weight:500;color:#c6d7cd;letter-spacing:.15em">WIDYA LOKA</div></div></div>
+ <nav class="toplinks"><button class="navbtn active" data-scroll="home">Beranda</button><button class="navbtn" data-scroll="catalog">Katalog Buku</button><button class="navbtn" data-scroll="loan">Peminjaman</button><button class="navbtn" data-scroll="reviews">Ulasan</button><button class="loginbtn" id="adminOpen">Admin ↗</button></nav>
+</div></header>
 <main>
-<div class="notice"><b>Selamat datang!</b> Katalog dapat dilihat semua pengunjung. Pengajuan pinjam dan ulasan harus mengikuti verifikasi petugas. Gunakan data seperlunya dan jangan menulis informasi pribadi pada ulasan.</div>
-<nav class="nav" aria-label="Navigasi">
-<button class="active" data-tab="catalog">📚 Katalog buku</button>
-<button data-tab="borrow">Ajukan pinjam</button>
-<button data-tab="return">Pengembalian</button>
-<button data-tab="reviews">Ulasan</button>
-<button data-tab="meaning">✨ Makna Nama</button>
-<button data-tab="admin">🔐 Petugas</button>
-</nav>
-<div id="message" class="status hidden" role="status"></div>
-<section id="tab-catalog">
-  <div class="panel"><div class="row mobile-stack"><div><h2>Katalog buku</h2><div class="muted">Cari judul, penulis, atau kategori koleksi.</div></div><span class="pill" id="connection">Memeriksa koneksi…</span></div><input class="field" id="search" placeholder="🔎 Cari buku…"></div>
-  <div id="books" class="grid"><div class="card">Memuat katalog…</div></div>
-</section>
-<section id="tab-borrow" hidden>
-  <div class="panel"><h2>Ajukan peminjaman</h2><p class="muted">Pengajuan belum berarti buku sudah dipinjam. Tunggu konfirmasi petugas.</p>
-  <form id="borrowForm"><div class="formgrid">
-  <label>Nama siswa<input class="field" name="student_name" maxlength="100" required></label>
-  <label>Kelas<input class="field" name="class_name" maxlength="20" placeholder="Contoh: XI.F2" required></label>
-  <label>Pilih buku<select class="field" name="book_id" id="borrowBook" required></select></label>
-  <label>Tanggal rencana pinjam<input class="field" name="borrow_date" type="date" required></label>
-  </div><button class="btn">Kirim pengajuan</button></form></div>
-</section>
-<section id="tab-return" hidden>
-  <div class="panel"><h2>Pengajuan pengembalian</h2><p class="muted">Masukkan ID transaksi dari petugas. Petugas tetap perlu memverifikasi pengembalian.</p>
-  <form id="returnForm"><label>ID transaksi<input class="field" name="loan_id" inputmode="numeric" placeholder="ID transaksi" required></label><button class="btn">Ajukan pengembalian</button></form></div>
-</section>
-<section id="tab-reviews" hidden>
-  <div class="panel"><h2>Tulis ulasan buku</h2><p class="muted">Ulasan baru ditinjau petugas sebelum tampil.</p>
-  <form id="reviewForm"><div class="formgrid"><label>Nama tampilan<input class="field" name="reviewer_name" maxlength="60" required></label><label>Buku<select class="field" name="book_id" id="reviewBook" required></select></label><label>Rating<select class="field" name="rating"><option value="5">★★★★★ — Sangat bagus</option><option value="4">★★★★☆ — Bagus</option><option value="3">★★★☆☆ — Cukup</option><option value="2">★★☆☆☆ — Kurang</option><option value="1">★☆☆☆☆ — Tidak sesuai harapan</option></select></label></div>
-  <label>Ulasan<textarea class="field" name="comment" rows="4" maxlength="1200" required></textarea></label><button class="btn">Kirim ulasan</button></form></div>
-  <div class="panel"><h2>Ulasan pembaca</h2><div id="reviewList" class="muted">Memuat ulasan…</div></div>
-</section>
-<section id="tab-meaning" hidden>
-  <div class="panel"><span class="pill">Filosofi Perpustakaan</span><h2>Makna Nama Akshara Saraswati Widya Loka</h2>
-  <p>Nama ini merupakan gabungan kata-kata Sanskerta yang menyimpan harapan tentang pengetahuan, kebijaksanaan, dan pembelajaran. Secara filosofis, nama ini dapat dimaknai sebagai <em>pengetahuan abadi yang mengalir dan menerangi dunia</em>.</p>
-  <p class="muted">Penjelasan berikut adalah penafsiran filosofis nama perpustakaan dengan nuansa budaya Hindu.</p></div>
-  <div class="grid">
-    <article class="card"><div class="cover">🕉️</div><h3>1. Akshara (अक्षर)</h3><p>Berarti “yang tidak dapat dihancurkan” atau “kekal”, dan juga dapat berarti huruf atau suku kata sebagai unsur dasar tulisan.</p><p class="muted">Nilai perpustakaan: pengetahuan dan tulisan menjadi warisan yang diteruskan lintas generasi.</p></article>
-    <article class="card"><div class="cover">🌊</div><h3>2. Saraswati (सरस्वती)</h3><p>Saraswati dikenal sebagai Dewi pengetahuan, musik, dan seni dalam agama Hindu. Namanya juga diasosiasikan dengan aliran, sebagai lambang ilmu dan kebijaksanaan yang terus mengalir.</p><p class="muted">Nilai perpustakaan: belajar adalah perjalanan berkelanjutan yang membuka kreativitas dan pemahaman.</p></article>
-    <article class="card"><div class="cover">📚</div><h3>3. Widya (विद्या)</h3><p>Widya berarti pengetahuan atau ilmu dan berkaitan dengan akar kata Sanskerta <em>vid</em>, yang berarti mengetahui.</p><p class="muted">Nilai perpustakaan: buku menjadi jendela untuk mengenal banyak gagasan dan sudut pandang.</p></article>
-    <article class="card"><div class="cover">🌏</div><h3>4. Loka (लोक)</h3><p>Berarti dunia, ruang, atau alam—tempat manusia belajar, bertumbuh, dan membagikan pengetahuan.</p><p class="muted">Nilai perpustakaan: ilmu yang diperoleh diharapkan bermanfaat bagi diri sendiri dan lingkungan.</p></article>
-  </div>
-  <div class="panel" style="margin-top:15px"><h2>Filosofi Gabungan</h2><div class="review"><h3>🌱 Pengetahuan menuju kebijaksanaan</h3><p>Pengetahuan yang bernilai dapat diwariskan dan menjadi bekal untuk mengambil keputusan dengan bijaksana.</p></div><div class="review"><h3>💧 Aliran ilmu yang tidak terputus</h3><p>Setiap buku, diskusi, dan pengalaman dapat menjadi awal dari pemahaman baru.</p></div><div class="review"><h3>✨ Menerangi dunia</h3><p>Pengetahuan bukan hanya untuk disimpan, melainkan diterapkan dan dibagikan agar memberi manfaat bagi lingkungan.</p></div><div class="notice" style="margin:16px 0 0"><strong>Makna keseluruhan:</strong> “Menggunakan pengetahuan yang abadi dan kebijaksanaan yang terus mengalir untuk menerangi dunia.”</div></div>
-</section>
-<section id="tab-admin" hidden>
-  <div class="panel"><h2>Area petugas perpustakaan</h2><p class="muted">Masuk dengan akun petugas yang dibuat di Supabase Authentication. Hanya akun yang didaftarkan sebagai admin di database yang dapat menambahkan buku.</p>
-    <form id="loginForm"><div class="formgrid"><label>Email petugas<input class="field" type="email" name="email" autocomplete="username" required></label><label>Password<input class="field" type="password" name="password" autocomplete="current-password" required></label></div><div class="row mobile-stack"><button class="btn">Masuk</button><button class="btn secondary hidden" type="button" id="logoutBtn">Keluar</button><span id="authStatus" class="muted">Belum masuk.</span></div></form>
-  </div>
-  <div id="adminTools" class="hidden">
-    <div class="panel"><h2>➕ Tambah buku ke katalog</h2><p class="muted">Isi data buku dan stok. Buku yang ditambahkan akan muncul di katalog publik.</p>
-      <form id="addBookForm"><div class="formgrid">
-        <label>Judul buku *<input class="field" name="title" maxlength="200" required></label>
-        <label>Penulis<input class="field" name="author" maxlength="160" placeholder="Nama penulis"></label>
-        <label>Kategori<input class="field" name="category" maxlength="80" placeholder="Contoh: Fiksi, Pendidikan"></label>
-        <label>Jumlah eksemplar *<input class="field" type="number" name="total_copies" min="0" max="10000" value="1" required></label>
-      </div><label>Deskripsi singkat<textarea class="field" name="description" rows="3" maxlength="1000" placeholder="Ringkasan buku (opsional)"></textarea></label><button class="btn">Simpan buku</button></form>
-    </div>
-    <div class="panel"><h2>Daftar koleksi aktif</h2><p class="muted">Untuk versi ini, penambahan buku tersedia melalui form ini. Pengubahan stok dan penghapusan tetap dikelola petugas melalui dashboard Supabase.</p><div id="adminBookList">Memuat…</div></div>
-  </div>
-</section>
+<section class="hero" id="home"><div class="wrap hero-grid">
+ <div><div class="eyebrow">Ruang baca • Ruang bertumbuh</div><h1>Temukan cerita,<br>luaskan dunia.</h1><p>Selamat datang di <b>Akshara Saraswati Widya Loka</b>, perpustakaan digital untuk menemukan bacaan, mengajukan peminjaman, mengurus pengembalian, dan berbagi ulasan buku.</p><div class="hero-actions"><button class="btn primary" data-scroll="catalog">Jelajahi katalog <span>↗</span></button><button class="btn light" data-scroll="loan">Pinjam buku</button></div></div>
+ <div class="hero-card"><div class="eyebrow">Mulai dari satu halaman</div><div class="big">Baca. Pahami.<br>Bertumbuh.</div><p class="small">Setiap buku membuka kemungkinan baru.</p><div class="hero-stats"><div class="stat"><strong id="bookCount">8</strong><span>Contoh judul</span></div><div class="stat"><strong id="availableCount">8</strong><span>Tersedia</span></div><div class="stat"><strong id="reviewCount">3</strong><span>Ulasan</span></div></div></div>
+</div></section>
+<section class="section" id="catalog"><div class="wrap">
+ <div class="sectionhead"><div><div class="label">Koleksi pilihan</div><h2>Katalog buku</h2><p>Temukan bacaan yang cocok untuk perjalanan belajarmu.</p></div><span class="pill" id="catalogStatus">Koleksi perpustakaan</span></div>
+ <div class="tools"><input class="field search" id="search" placeholder="Cari judul, penulis, atau kategori…"><select class="field" id="category"><option value="">Semua kategori</option><option>Fiksi</option><option>Pengembangan Diri</option><option>Sains</option><option>Sejarah</option><option>Bahasa</option><option>Literasi</option></select><select class="field" id="availability"><option value="">Semua status</option><option value="available">Tersedia</option><option value="out">Dipinjam</option></select></div>
+ <div id="notice" class="notice"></div><div class="bookgrid" id="bookGrid"></div>
+</div></section>
+<section class="section" id="loan" style="background:#eeefe6"><div class="wrap"><div class="sectionhead"><div><div class="label">Layanan mandiri</div><h2>Peminjaman & pengembalian</h2><p>Isi data dengan benar agar petugas dapat memproses permohonanmu.</p></div></div>
+ <div class="panels">
+ <div class="panel"><h3>Ajukan peminjaman</h3><p>Pilih buku dari katalog, lalu masukkan identitas peminjam.</p><form id="loanForm" class="formgrid">
+ <div class="full"><label for="loanBook">Buku yang dipilih</label><select class="field" id="loanBook" required><option value="">Pilih buku…</option></select></div>
+ <div><label for="loanName">Nama lengkap</label><input class="field" id="loanName" required placeholder="Nama siswa"></div><div><label for="loanClass">Kelas</label><input class="field" id="loanClass" required placeholder="Contoh: XI.F2"></div>
+ <div><label for="loanId">NIS / ID siswa</label><input class="field" id="loanId" required placeholder="Nomor identitas"></div><div><label for="loanDate">Tanggal pinjam</label><input class="field" id="loanDate" type="date" required></div>
+ <div class="full"><label for="loanNotes">Catatan (opsional)</label><textarea class="field" id="loanNotes" placeholder="Catatan untuk petugas"></textarea></div><div class="full"><button class="btn dark" type="submit">Kirim permohonan →</button></div></form></div>
+ <div class="panel"><h3>Pengembalian buku</h3><p>Kirim permohonan pengembalian untuk buku yang sedang kamu pinjam.</p><form id="returnForm" class="formgrid">
+ <div class="full"><label for="returnBook">Judul buku</label><select class="field" id="returnBook" required><option value="">Pilih buku…</option></select></div>
+ <div class="full"><label for="returnName">Nama lengkap</label><input class="field" id="returnName" required placeholder="Nama siswa"></div>
+ <div><label for="returnId">NIS / ID siswa</label><input class="field" id="returnId" required placeholder="Nomor identitas"></div><div><label for="returnDate">Tanggal pengembalian</label><input class="field" id="returnDate" type="date" required></div>
+ <div class="full"><label for="returnCondition">Kondisi buku</label><select class="field" id="returnCondition" required><option value="">Pilih kondisi…</option><option>Baik</option><option>Rusak ringan</option><option>Perlu diperiksa petugas</option></select></div>
+ <div class="full"><button class="btn dark" type="submit">Ajukan pengembalian →</button></div></form></div>
+ </div>
+</div></section>
+<section class="section" id="reviews"><div class="wrap"><div class="sectionhead"><div><div class="label">Suara pembaca</div><h2>Ulasan buku</h2><p>Bagikan kesanmu dan bantu teman menemukan bacaan baru.</p></div></div>
+ <div class="panels" style="margin-bottom:20px"><div class="panel"><h3>Tulis ulasan</h3><p>Ulasan akan ditampilkan setelah berhasil dikirim.</p><form id="reviewForm" class="formgrid">
+ <div><label for="reviewName">Nama</label><input class="field" id="reviewName" required placeholder="Nama pembaca"></div><div><label for="reviewBook">Judul buku</label><select class="field" id="reviewBook" required><option value="">Pilih buku…</option></select></div>
+ <div class="full"><label for="reviewRating">Rating</label><select class="field" id="reviewRating" required><option value="5">★★★★★ — Sangat bagus</option><option value="4">★★★★☆ — Bagus</option><option value="3">★★★☆☆ — Cukup</option><option value="2">★★☆☆☆ — Kurang</option><option value="1">★☆☆☆☆ — Tidak sesuai</option></select></div>
+ <div class="full"><label for="reviewText">Ulasan</label><textarea class="field" id="reviewText" required minlength="8" placeholder="Apa yang kamu sukai dari buku ini?"></textarea></div><div class="full"><button class="btn dark" type="submit">Kirim ulasan →</button></div></form></div><div class="panel" style="background:var(--green);color:white"><div class="eyebrow">Komunitas pembaca</div><h3 style="font-size:28px;margin-top:10px">Buku yang baik layak dibagikan.</h3><p style="color:#d6e4dc;line-height:1.8">Ceritakan hal yang kamu pelajari, kutipan yang berkesan, atau siapa yang mungkin menyukai buku tersebut. Tulis ulasan yang jujur dan tetap menghargai pembaca lain.</p><div style="font:600 16px 'Playfair Display',serif;color:var(--lime)">“Membaca hari ini, bertumbuh setiap hari.”</div></div></div>
+ <div class="reviews" id="reviewGrid"></div>
+</div></section>
+<section class="adminarea" id="adminArea"><div class="wrap"><div class="sectionhead"><div><div class="label">Panel pengelola</div><h2>Dashboard admin</h2><p>Kelola permohonan yang masuk dan koleksi buku.</p></div><button class="btn outline" id="logoutBtn">Keluar</button></div><div id="adminNotice" class="notice"></div><div class="panels"><div class="panel"><h3>Permohonan peminjaman</h3><div class="adminlist" id="adminLoans"></div></div><div class="panel"><h3>Permohonan pengembalian</h3><div class="adminlist" id="adminReturns"></div></div></div><div class="panel" style="margin-top:18px"><h3>Tambah buku</h3><form id="addBookForm" class="formgrid" style="margin-top:14px"><div><label>Judul</label><input class="field" id="newTitle" required></div><div><label>Penulis</label><input class="field" id="newAuthor" required></div><div><label>Kategori</label><input class="field" id="newCategory" required placeholder="Contoh: Fiksi"></div><div><label>Jumlah tersedia</label><input class="field" id="newStock" type="number" min="0" value="1" required></div><div class="full"><button class="btn dark" type="submit">Tambah ke katalog</button></div></form></div></div></section>
 </main>
-<footer>Akshara Saraswati Widya Loka · SMA Negeri 1 Banjarangkan<br>Website perpustakaan; gunakan sesuai kebijakan sekolah.</footer>
-<script type="module">
-const SUPABASE_URL = "https://lehmwhxpjkdkxfkkunaj.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_lK5gA_bWHzioAKSHEun_dA_WlV2MEvs";
-const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("ISI_") && !SUPABASE_ANON_KEY.includes("ISI_");
-const $=s=>document.querySelector(s);
-let sb=null, books=[], session=null;
-const sampleBooks=[
-{id:"sample-1",title:"Laskar Pelangi",author:"Andrea Hirata",category:"Fiksi",available_copies:3,description:"Novel tentang pendidikan dan persahabatan."},
-{id:"sample-2",title:"Bumi",author:"Tere Liye",category:"Fiksi",available_copies:2,description:"Novel petualangan fantasi."},
-{id:"sample-3",title:"Filosofi Teras",author:"Henry Manampiring",category:"Pengembangan Diri",available_copies:2,description:"Pengantar filsafat Stoikisme."}
+<footer class="footer"><div class="wrap footerinner"><div><div class="brandmini"><div class="mark">A</div><div>Akshara Saraswati Widya Loka</div></div><small>Perpustakaan digital • Ruang baca, ruang bertumbuh.</small></div><small>© <span id="year"></span> Akshara Saraswati Widya Loka</small></div></footer>
+<div class="modal" id="adminModal"><div class="modalbox"><div class="modalhead"><h3>Masuk admin</h3><button class="xbtn" id="closeModal" aria-label="Tutup">✕</button></div><p class="muted" style="font-size:13px;line-height:1.6">Masuk menggunakan akun yang terdaftar pada Supabase Authentication. Kata sandi tidak disimpan di halaman ini.</p><form class="loginform" id="loginForm"><div><label for="adminEmail">Email admin</label><input class="field" id="adminEmail" type="email" required autocomplete="username" placeholder="email@sekolah.sch.id"></div><div><label for="adminPassword">Kata sandi</label><input class="field" id="adminPassword" type="password" required autocomplete="current-password" placeholder="Kata sandi"></div><button class="btn dark" type="submit">Masuk dashboard</button></form><div id="loginNotice" class="notice"></div></div></div>
+<script>
+/* SETUP: paste Supabase Project URL and publishable/anon key below.
+   Never place a service_role/secret key or an admin password in frontend code. */
+const SUPABASE_URL = "PASTE_SUPABASE_PROJECT_URL_HERE";
+const SUPABASE_ANON_KEY = "PASTE_SUPABASE_PUBLISHABLE_OR_ANON_KEY_HERE";
+const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("PASTE_") && !SUPABASE_ANON_KEY.includes("PASTE_");
+const db = configured && window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const sampleBooks = [
+ {id:"demo-1",title:"Laskar Pelangi",author:"Andrea Hirata",category:"Fiksi",stock:4,cover:"c1"},
+ {id:"demo-2",title:"Filosofi Teras",author:"Henry Manampiring",category:"Pengembangan Diri",stock:3,cover:"c2"},
+ {id:"demo-3",title:"Sapiens",author:"Yuval Noah Harari",category:"Sejarah",stock:2,cover:"c3"},
+ {id:"demo-4",title:"Bumi",author:"Tere Liye",category:"Fiksi",stock:0,cover:"c4"},
+ {id:"demo-5",title:"Atomic Habits",author:"James Clear",category:"Pengembangan Diri",stock:3,cover:"c5"},
+ {id:"demo-6",title:"A Brief History of Time",author:"Stephen Hawking",category:"Sains",stock:2,cover:"c6"},
+ {id:"demo-7",title:"Bahasa Indonesia: Mahir Berbahasa",author:"Tim Literasi",category:"Bahasa",stock:5,cover:"c7"},
+ {id:"demo-8",title:"Seni Membaca Dunia",author:"Tim Literasi",category:"Literasi",stock:4,cover:"c8"}
 ];
+const sampleReviews=[
+ {id:"r1",name:"Ayu",book_title:"Laskar Pelangi",rating:5,review_text:"Kisah yang mengingatkan kita untuk terus berjuang dan menghargai pendidikan."},
+ {id:"r2",name:"Made",book_title:"Atomic Habits",rating:4,review_text:"Penjelasannya mudah dipahami. Cocok untuk mulai membangun kebiasaan baik."},
+ {id:"r3",name:"Komang",book_title:"Filosofi Teras",rating:5,review_text:"Membantu melihat masalah dari sudut pandang yang lebih tenang dan bijak."}
+];
+let books=[...sampleBooks], reviews=[...sampleReviews], session=null;
+const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function msg(text,isError=false){const el=$("#message");el.textContent=text;el.classList.remove("hidden","error");if(isError)el.classList.add("error");window.scrollTo({top:0,behavior:"smooth"});}
-function today(){return new Date().toISOString().slice(0,10)}
-function setConnection(text){$("#connection").textContent=text}
-document.querySelectorAll("[data-tab]").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll("[data-tab]").forEach(b=>b.classList.toggle("active",b===btn));document.querySelectorAll("main section").forEach(s=>s.hidden=s.id!=="tab-"+btn.dataset.tab);}));
-function renderBooks(){
- const q=$("#search").value.toLowerCase();
- const found=books.filter(b=>`${b.title} ${b.author} ${b.category}`.toLowerCase().includes(q));
- $("#books").innerHTML=found.length?found.map(b=>`<article class="card"><div class="cover">📖</div><div class="book-title">${esc(b.title)}</div><div class="muted">${esc(b.author||"Penulis belum diisi")}</div><p class="small"><span class="pill">${esc(b.category||"Umum")}</span></p><p class="muted">${esc(b.description||"")}</p><div class="row"><span class="pill">${Number(b.available_copies)>0?`${Number(b.available_copies)} tersedia`:"Stok habis"}</span><button class="btn" data-borrow="${esc(b.id)}" ${Number(b.available_copies)<=0?"disabled":""}>Pinjam</button></div></article>`).join(""):"<div class='card'>Buku tidak ditemukan.</div>";
- $("#books").querySelectorAll("[data-borrow]").forEach(btn=>btn.onclick=()=>{document.querySelector('[data-tab="borrow"]').click();$("#borrowBook").value=btn.dataset.borrow;});
-}
-function fillSelects(){const opts=books.map(b=>`<option value="${esc(b.id)}">${esc(b.title)}</option>`).join("");$("#borrowBook").innerHTML=opts||"<option value=''>Belum ada buku</option>";$("#reviewBook").innerHTML=opts||"<option value=''>Belum ada buku</option>";}
-function renderAdminList(){const list=books.filter(b=>!String(b.id).startsWith("sample-"));$("#adminBookList").innerHTML=list.length?`<div class="tablewrap"><table><thead><tr><th>Judul</th><th>Penulis</th><th>Kategori</th><th>Stok tersedia</th></tr></thead><tbody>${list.map(b=>`<tr><td>${esc(b.title)}</td><td>${esc(b.author)}</td><td>${esc(b.category)}</td><td>${Number(b.available_copies)}</td></tr>`).join("")}</tbody></table></div>`:"<p class='muted'>Belum ada buku tersimpan di database.</p>";}
-async function loadBooks(){
- const {data,error}=await sb.from("books").select("id,title,author,category,description,total_copies,available_copies,is_active").eq("is_active",true).order("title");
- if(error){console.error("Supabase loadBooks error:",error);throw error;}
- books=data||[];renderBooks();fillSelects();renderAdminList();
-}
-async function loadReviews(){
- const {data,error}=await sb.from("reviews").select("reviewer_name,rating,comment,created_at,books(title)").eq("is_visible",true).order("created_at",{ascending:false}).limit(100);
- if(error){$("#reviewList").textContent="Ulasan belum dapat dimuat.";return;}
- $("#reviewList").innerHTML=data.length?data.map(r=>`<div class="review"><div class="row"><b>${esc(r.reviewer_name)}</b><span class="stars">${"★".repeat(r.rating)}${"☆".repeat(5-r.rating)}</span></div><div class="muted">${esc(r.books?.title||"Buku")} · ${new Date(r.created_at).toLocaleDateString("id-ID")}</div><p>${esc(r.comment)}</p></div>`).join(""):"<p class='muted'>Belum ada ulasan.</p>";
-}
-function updateAuthUI(user){
- session=user;$("#authStatus").textContent=user?`Masuk sebagai ${user.email}`:"Belum masuk.";
- $("#logoutBtn").classList.toggle("hidden",!user);
- $("#adminTools").classList.add("hidden");
-}
-async function init(){
- if(!configured){setConnection("URL/key belum diatur");books=sampleBooks;renderBooks();fillSelects();renderAdminList();$("#reviewList").textContent="Atur URL dan key Supabase untuk memuat ulasan.";$("#authStatus").textContent="Koneksi Supabase belum diatur.";return;}
- try{
-  let supabaseModule;
-  try { supabaseModule=await import("https://esm.sh/@supabase/supabase-js@2"); }
-  catch(firstImportError) { console.warn("Primary Supabase CDN failed; trying fallback",firstImportError); supabaseModule=await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm"); }
-  const {createClient}=supabaseModule;
-  sb=createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-  const {data:{session:currentSession}}=await sb.auth.getSession();updateAuthUI(currentSession?.user||null);
-  sb.auth.onAuthStateChange((_event,newSession)=>{updateAuthUI(newSession?.user||null);if(newSession?.user){$("#adminTools").classList.remove("hidden");loadBooks().catch(()=>{});}});
-  await loadBooks();await loadReviews();setConnection("Database terhubung");
- }catch(err){
-  console.error("Inisialisasi Supabase gagal:",err);
-  setConnection("Koneksi bermasalah");
-  books=sampleBooks;renderBooks();fillSelects();renderAdminList();
-  $("#reviewList").textContent="Ulasan tidak dapat dimuat sampai koneksi database pulih.";
-  const detail=String(err?.message||err||"Error tidak diketahui");
-  const el=$("#message");el.textContent="Koneksi Supabase gagal: "+detail+". Periksa detail ini untuk menentukan perbaikan.";el.classList.remove("hidden");el.classList.add("error");
- }
-}
-$("#search").addEventListener("input",renderBooks);
-$("#borrowForm").addEventListener("submit",async e=>{
- e.preventDefault();
- if(!sb)return msg("Database belum terhubung.",true);
- const form=e.currentTarget, f=new FormData(form), date=String(f.get("borrow_date")||"");
- const studentName=String(f.get("student_name")||"").trim(), className=String(f.get("class_name")||"").trim(), bookId=String(f.get("book_id")||"");
- if(date<today())return msg("Tanggal pinjam tidak boleh di masa lalu.",true);
- if(!bookId)return msg("Pilih buku yang ingin dipinjam.",true);
- const chosen=books.find(b=>String(b.id)===bookId);
- if(!chosen)return msg("Buku tidak ditemukan. Muat ulang katalog lalu coba lagi.",true);
- if(Number(chosen.available_copies)<=0)return msg("Maaf, stok buku ini habis. Silakan pilih buku lain.",true);
- const submit=form.querySelector('button[type="submit"],button:not([type])'); if(submit){submit.disabled=true;submit.textContent="Memproses…";}
- try{
-  const {data,error}=await sb.rpc("submit_loan_request",{p_student_name:studentName,p_class_name:className,p_book_id:bookId,p_borrow_date:date});
-  if(error){console.error("Pengajuan pinjam:",error);msg("Pengajuan belum berhasil. Pastikan SQL file tambahan sudah dijalankan di Supabase. Detail: "+(error.message||"error tidak diketahui"),true);return;}
-  const result=Array.isArray(data)?data[0]:data;
-  const transactionId=result?.transaction_id??result?.id;
-  if(transactionId==null){console.error("Respons submit_loan_request:",data);msg("Pengajuan diproses, tetapi kode transaksi tidak diterima. Hubungi petugas sebelum mengirim ulang.",true);return;}
-  form.reset();
-  await loadBooks();
-  const messageEl=$("#message");
-  messageEl.innerHTML=`<strong>Pengajuan berhasil dikirim!</strong><br>Kode transaksi kamu: <strong>${esc(transactionId)}</strong><br>Buku: <strong>${esc(result.book_title||chosen.title)}</strong><br>Catat kode ini untuk pengembalian. Stok sudah dikurangi untuk menahan buku selama menunggu verifikasi petugas.`;
-  messageEl.classList.remove("hidden","error");window.scrollTo({top:0,behavior:"smooth"});
- }catch(err){console.error(err);msg("Terjadi kesalahan saat mengirim pengajuan. Periksa koneksi lalu hubungi petugas sebelum mencoba ulang.",true);}
- finally{if(submit){submit.disabled=false;submit.textContent="Kirim pengajuan";}}
-});
-$("#returnForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb)return msg("Database belum terhubung.",true);const raw=String(new FormData(e.currentTarget).get("loan_id")||"").trim().replace(/^AWL-/i,"");const id=Number(raw);if(!Number.isInteger(id)||id<1)return msg("Masukkan kode transaksi angka yang tampil setelah pengajuan pinjam berhasil.",true);const {error}=await sb.from("return_requests").insert({loan_id:id});if(error){console.error("Pengajuan kembali:",error);return msg("Pengajuan tidak dapat dibuat. Periksa kode transaksi atau hubungi petugas.",true);}e.currentTarget.reset();msg("Pengajuan pengembalian terkirim untuk diverifikasi petugas.");});
-$("#reviewForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb)return msg("Database belum terhubung.",true);const f=new FormData(e.currentTarget);const {error}=await sb.from("reviews").insert({reviewer_name:String(f.get("reviewer_name")).trim(),book_id:f.get("book_id"),rating:Number(f.get("rating")),comment:String(f.get("comment")).trim(),is_visible:false});if(error)return msg("Ulasan gagal dikirim. Coba lagi nanti.",true);e.currentTarget.reset();await loadReviews();msg("Ulasan terkirim untuk ditinjau petugas.");});
-$("#loginForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb)return msg("Atur koneksi Supabase dahulu.",true);const f=new FormData(e.currentTarget);const {data,error}=await sb.auth.signInWithPassword({email:String(f.get("email")).trim(),password:String(f.get("password"))});if(error){$("#adminTools").classList.add("hidden");return msg("Login gagal. Periksa email/password atau pastikan akun petugas sudah dibuat di Supabase.",true);}updateAuthUI(data.user);$("#adminTools").classList.remove("hidden");await loadBooks();msg("Login berhasil. Jika tidak terdaftar sebagai admin database, penambahan buku tetap akan ditolak.");});
-$("#logoutBtn").addEventListener("click",async()=>{if(sb)await sb.auth.signOut();updateAuthUI(null);msg("Kamu sudah keluar dari akun petugas.");});
-$("#addBookForm").addEventListener("submit",async e=>{e.preventDefault();if(!sb||!session)return msg("Masuk sebagai petugas terlebih dahulu.",true);const f=new FormData(e.currentTarget);const total=Math.max(0,Math.min(10000,Number(f.get("total_copies"))||0));const record={title:String(f.get("title")).trim(),author:String(f.get("author")||"").trim(),category:String(f.get("category")||"Umum").trim()||"Umum",description:String(f.get("description")||"").trim(),total_copies:total,available_copies:total,is_active:true};const {error}=await sb.from("books").insert(record);if(error){console.error(error);return msg("Buku belum tersimpan. Pastikan akunmu sudah didaftarkan sebagai admin dan SQL admin sudah dijalankan.",true);}e.currentTarget.reset();e.currentTarget.elements.total_copies.value="1";await loadBooks();msg("Buku berhasil ditambahkan ke katalog!");});
-init();
+function notice(id,msg,kind="ok"){const n=$(id);n.className="notice show "+(kind==="err"?"err":"ok");n.textContent=msg;setTimeout(()=>n.classList.remove("show"),6500)}
+function showNotice(msg,kind){notice("notice",msg,kind)}
+function refreshStats(){$("bookCount").textContent=books.length;$("availableCount").textContent=books.reduce((s,b)=>s+Number(b.stock||0),0);$("reviewCount").textContent=reviews.length}
+function populateSelects(){const options=books.map(b=>`<option value="${esc(b.id)}">${esc(b.title)} — ${Number(b.stock)>0?`tersedia ${Number(b.stock)}`:"sedang dipinjam"}</option>`).join("");$("loanBook").innerHTML='<option value="">Pilih buku…</option>'+options;$("returnBook").innerHTML='<option value="">Pilih buku…</option>'+books.map(b=>`<option value="${esc(b.id)}">${esc(b.title)}</option>`).join("");$("reviewBook").innerHTML='<option value="">Pilih buku…</option>'+books.map(b=>`<option value="${esc(b.title)}">${esc(b.title)}</option>`).join("")}
+function renderBooks(){const q=$("search").value.trim().toLowerCase(),cat=$("category").value,avail=$("availability").value;const filtered=books.filter(b=>(`${b.title} ${b.author} ${b.category}`.toLowerCase().includes(q))&&(!cat||b.category===cat)&&(!avail||(avail==="available"?Number(b.stock)>0:Number(b.stock)<=0)));$("bookGrid").innerHTML=filtered.length?filtered.map((b,i)=>`<article class="book"><div class="cover ${esc(b.cover||("c"+((i%8)+1)))}"><span>${esc(b.title)}</span><small>AKSHARA • WIDYA LOKA</small></div><div class="bookbody"><div class="category">${esc(b.category)}</div><h3>${esc(b.title)}</h3><p class="author">oleh ${esc(b.author)}</p><div class="bookfoot"><span class="stock ${Number(b.stock)<=0?"out":""}">${Number(b.stock)>0?`${Number(b.stock)} tersedia`:"Tidak tersedia"}</span><button class="smallbtn" ${Number(b.stock)<=0?"disabled":""} onclick="chooseBook('${esc(b.id)}')">Pinjam</button></div></div></article>`).join(""):'<div class="empty">Tidak ada buku yang cocok. Coba kata kunci lain.</div>';refreshStats();populateSelects()}
+function chooseBook(id){$("loanBook").value=id;document.querySelector('[data-scroll="loan"]').click()}
+function renderReviews(){$("reviewGrid").innerHTML=reviews.length?reviews.map(r=>`<article class="review"><div class="stars">${"★".repeat(Math.max(1,Math.min(5,Number(r.rating)||5)))}${"☆".repeat(5-Math.max(1,Math.min(5,Number(r.rating)||5)))}</div><p>${esc(r.review_text)}</p><strong>${esc(r.name)}</strong><br><small>Ulasan: ${esc(r.book_title)}</small></article>`).join(""):'<div class="empty">Belum ada ulasan.</div>';refreshStats()}
+async function loadData(){if(!db){$("catalogStatus").textContent="Mode demo";renderBooks();renderReviews();return}
+ try{const [b,r]=await Promise.all([db.from("books").select("*").order("title"),db.from("reviews").select("*").order("created_at",{ascending:false})]);if(b.error)throw b.error;if(r.error)throw r.error;if(b.data?.length)books=b.data.map(x=>({...x,stock:x.available_copies??x.stock??0}));if(r.data)reviews=r.data.map(x=>({...x,name:x.reviewer_name??x.name,book_title:x.book_title??books.find(b=>b.id===x.book_id)?.title??"Buku"}));$("catalogStatus").textContent="Terhubung ke database";renderBooks();renderReviews()}catch(e){console.error(e);$("catalogStatus").textContent="Periksa konfigurasi";renderBooks();renderReviews();showNotice("Koneksi database gagal. Periksa Project URL, key, tabel, dan kebijakan akses Supabase.","err")}}
+async function submitLoan(data){if(!db){showNotice("Mode demo: formulir belum disimpan ke database. Hubungkan Supabase untuk mengaktifkan penyimpanan.","err");return}const {error}=await db.from("loan_requests").insert(data);if(error)throw error}
+async function submitReturn(data){if(!db){showNotice("Mode demo: formulir belum disimpan ke database. Hubungkan Supabase untuk mengaktifkan penyimpanan.","err");return}const {error}=await db.from("return_requests").insert(data);if(error)throw error}
+$("loanForm").addEventListener("submit",async e=>{e.preventDefault();const b=books.find(x=>String(x.id)===$("loanBook").value);if(!b||Number(b.stock)<=0){showNotice("Buku belum tersedia. Silakan pilih buku lain.","err");return}const data={book_id:b.id,book_title:b.title,student_name:$("loanName").value.trim(),student_class:$("loanClass").value.trim(),student_id:$("loanId").value.trim(),loan_date:$("loanDate").value,notes:$("loanNotes").value.trim(),status:"pending"};try{await submitLoan(data);if(db)showNotice("Permohonan peminjaman berhasil dikirim. Tunggu konfirmasi petugas.");e.target.reset()}catch(err){showNotice("Gagal mengirim permohonan: "+(err.message||"periksa konfigurasi database"),"err")}});
+$("returnForm").addEventListener("submit",async e=>{e.preventDefault();const b=books.find(x=>String(x.id)===$("returnBook").value);if(!b){showNotice("Pilih buku yang ingin dikembalikan.","err");return}const data={book_id:b.id,book_title:b.title,student_name:$("returnName").value.trim(),student_id:$("returnId").value.trim(),return_date:$("returnDate").value,book_condition:$("returnCondition").value,status:"pending"};try{if(!db){showNotice("Mode demo: pengembalian belum tersimpan. Hubungkan Supabase agar permohonan tercatat.","err");return}await submitReturn(data);showNotice("Berhasil! Permohonan pengembalian buku sudah tercatat dan menunggu konfirmasi petugas.","ok");e.target.reset()}catch(err){showNotice("Pengembalian gagal dikirim: "+(err.message||"periksa koneksi dan izin Supabase"),"err")}});
+$("reviewForm").addEventListener("submit",async e=>{e.preventDefault();const title=$("reviewBook").value;const data={reviewer_name:$("reviewName").value.trim(),book_title:title,rating:Number($("reviewRating").value),review_text:$("reviewText").value.trim()};try{if(db){const {data:inserted,error}=await db.from("reviews").insert(data).select().single();if(error)throw error;reviews.unshift({id:inserted?.id??Date.now(),name:data.reviewer_name,...data});notice("notice","Terima kasih! Ulasan berhasil dikirim dan langsung ditampilkan untuk semua pengunjung.","ok")}else{reviews.unshift({id:Date.now(),name:data.reviewer_name,...data});notice("notice","Ulasan tampil pada pratinjau demo saja. Hubungkan Supabase agar ulasan tersimpan dan terlihat oleh pengunjung lain.","ok")}renderReviews();e.target.reset()}catch(err){showNotice("Ulasan gagal dikirim: "+(err.message||"periksa koneksi dan izin Supabase"),"err")}});
+$("search").addEventListener("input",renderBooks);$("category").addEventListener("change",renderBooks);$("availability").addEventListener("change",renderBooks);
+document.querySelectorAll("[data-scroll]").forEach(btn=>btn.addEventListener("click",()=>{document.getElementById(btn.dataset.scroll).scrollIntoView({behavior:"smooth"});document.querySelectorAll(".navbtn").forEach(x=>x.classList.toggle("active",x.dataset.scroll===btn.dataset.scroll))}));
+$("adminOpen").onclick=()=>{$("adminModal").classList.add("show");$("loginNotice").className="notice"};$("closeModal").onclick=()=> $("adminModal").classList.remove("show");$("adminModal").addEventListener("click",e=>{if(e.target===$("adminModal"))$("adminModal").classList.remove("show")});
+$("loginForm").addEventListener("submit",async e=>{e.preventDefault();if(!db){notice("loginNotice","Hubungkan Supabase terlebih dahulu. Login admin tidak tersedia dalam mode demo.","err");return}const {data,error}=await db.auth.signInWithPassword({email:$("adminEmail").value,password:$("adminPassword").value});if(error){notice("loginNotice","Login gagal: "+error.message,"err");return}session=data.session;$("adminModal").classList.remove("show");$("adminArea").classList.add("show");$("adminArea").scrollIntoView({behavior:"smooth"});await loadAdmin()});
+async function loadAdmin(){if(!db||!session)return;try{const [l,r]=await Promise.all([db.from("loan_requests").select("*").order("created_at",{ascending:false}),db.from("return_requests").select("*").order("created_at",{ascending:false})]);if(l.error)throw l.error;if(r.error)throw r.error;renderAdminList("adminLoans",l.data||[],"loan");renderAdminList("adminReturns",r.data||[],"return")}catch(e){notice("adminNotice","Gagal memuat data: "+e.message,"err")}}
+function renderAdminList(id,items,type){$(id).innerHTML=items.length?items.map(x=>`<div class="adminitem"><div><strong>${esc(x.book_title||"Buku")}</strong><br><span class="muted">${esc(x.student_name)} • ${esc(x.student_class||x.student_id||"")}</span><br><span class="pill">${esc(x.status||"pending")}</span></div><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="smallbtn" onclick="updateStatus('${type}','${esc(x.id)}','approved')">Setujui</button><button class="smallbtn" style="background:#a44b36" onclick="updateStatus('${type}','${esc(x.id)}','rejected')">Tolak</button></div></div>`).join(""):'<p class="muted">Belum ada permohonan.</p>'}
+async function updateStatus(type,id,status){const table=type==="loan"?"loan_requests":"return_requests";const {error}=await db.from(table).update({status}).eq("id",id);if(error){notice("adminNotice","Gagal memperbarui status: "+error.message,"err");return}notice("adminNotice","Status diperbarui.");loadAdmin()}
+$("addBookForm").addEventListener("submit",async e=>{e.preventDefault();if(!db){notice("adminNotice","Hubungkan database dahulu.","err");return}const {error}=await db.from("books").insert({title:$("newTitle").value.trim(),author:$("newAuthor").value.trim(),category:$("newCategory").value.trim(),available_copies:Number($("newStock").value),total_copies:Number($("newStock").value)});if(error){notice("adminNotice","Gagal menambah buku: "+error.message,"err");return}e.target.reset();await loadData();notice("adminNotice","Buku berhasil ditambahkan.")});
+$("logoutBtn").onclick=async()=>{if(db)await db.auth.signOut();session=null;$("adminArea").classList.remove("show");window.scrollTo({top:0,behavior:"smooth"})};
+$("year").textContent=new Date().getFullYear();const today=new Date().toISOString().slice(0,10);["loanDate","returnDate"].forEach(id=>$(id).value=today);loadData();
 </script>
-</body>
-</html>
+</body></html>
